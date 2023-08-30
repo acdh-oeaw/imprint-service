@@ -1,0 +1,22 @@
+{
+	"editor.codeActionsOnSave": {
+		"source.fixAll": true
+	},
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"editor.formatOnSave": true,
+	"editor.inlayHints.enabled": "offUnlessPressed",
+	"editor.rulers": [100],
+	"editor.stickyScroll.enabled": true,
+	"eslint.enable": true,
+	"eslint.validate": ["javascript", "typescript"],
+	"files.eol": "\n",
+	"terminal.integrated.enablePersistentSessions": false,
+	"typescript.enablePromptUseWorkspaceTsdk": true,
+	"typescript.inlayHints.parameterNames.enabled": "all",
+	"typescript.preferences.importModuleSpecifier": "non-relative",
+	"typescript.tsdk": "node_modules/typescript/lib",
+	"workbench.editor.labelFormat": "medium",
+	"[markdown]": {
+		"editor.wordWrap": "on"
+	}
+}
