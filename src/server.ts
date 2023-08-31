@@ -18,6 +18,11 @@ import { getTemplate } from "./template.js";
 const server = express();
 server.use(cors());
 
+/** Healthcheck, used by cluster. */
+server.get("/", (req, res) => {
+	res.send("OK");
+});
+
 const pathParamsSchema = z.object({
 	serviceId: z.coerce.number().int().positive(),
 });
