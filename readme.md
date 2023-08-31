@@ -24,6 +24,12 @@ the following options can be set via url query string:
 - `locale: "de" | "en"`: request the imprint text in either german ("de") or english ("en").
   default: "en". example: `https://imprint.acdh.oeaw.ac.at/13777/?locale=de`
 
+## custom text
+
+custom text for "copyright notice", "matomo notice", "project nature", "responsible persons", and
+"website-aim" can be provided via the "ImprintParams" custom yaml field in the redmine service
+issue.
+
 ## how to run locally
 
 prerequisites:
