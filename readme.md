@@ -10,7 +10,7 @@ request the imprint by providing a redmine service id to
 example:
 
 ```bash
-curl "https://imprint.acdh.oeaw.ac.at/13777"
+curl "https://imprint.acdh.oeaw.ac.at/21966"
 ```
 
 by default, the service returns the imprint text as html in english.
@@ -20,9 +20,9 @@ by default, the service returns the imprint text as html in english.
 the following options can be set via url query string:
 
 - `format: "html" | "markdown"`: request the imprint text as either "html" or "markdown". default:
-  "html". example: `https://imprint.acdh.oeaw.ac.at/13777/?format=markdown`
+  "html". example: `https://imprint.acdh.oeaw.ac.at/21966/?format=markdown`
 - `locale: "de" | "en"`: request the imprint text in either german ("de") or english ("en").
-  default: "en". example: `https://imprint.acdh.oeaw.ac.at/13777/?locale=de`
+  default: "en". example: `https://imprint.acdh.oeaw.ac.at/21966/?locale=de`
 
 ## custom text
 
