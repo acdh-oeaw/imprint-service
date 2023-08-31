@@ -18,19 +18,19 @@ import { getTemplate } from "./template.js";
 const server = express();
 server.use(cors());
 
-const searchParamsSchema = z.object({
-	format: z.enum(["html", "markdown"]).default("html"),
-	outputLang: z.enum(locales).default("en"),
-	serviceID: z.coerce.number().int().positive(),
+const pathParamsSchema = z.object({
+	serviceId: z.coerce.number().int().positive(),
 });
 
-server.get("/", async (req, res, next) => {
+const searchParamsSchema = z.object({
+	format: z.enum(["html", "markdown"]).default("html"),
+	locale: z.enum(locales).default("en"),
+});
+
+server.get("/:serviceId", async (req, res, next) => {
 	try {
-		const {
-			outputLang: locale,
-			format,
-			serviceID: serviceId,
-		} = searchParamsSchema.parse(req.query);
+		const { serviceId } = pathParamsSchema.parse(req.params);
+		const { locale, format } = searchParamsSchema.parse(req.query);
 
 		const issue = await getRedmineIssueById(serviceId);
 		const config = getImprintConfig(issue);
