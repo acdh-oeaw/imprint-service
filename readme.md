@@ -1,4 +1,28 @@
-# acdh imprint service
+# imprint service
+
+service to retrieve acdh-ch imprint text as html or markdown.
+
+## how to use
+
+request the imprint by providing a redmine service id to
+`https://imprint.acdh.oeaw.ac.at/:service-id`.
+
+example:
+
+```bash
+curl "https://imprint.acdh.oeaw.ac.at/13777"
+```
+
+by default, the service returns the imprint text as html in english.
+
+### options
+
+the following options can be set via url query string:
+
+- `format: "html" | "markdown"`: request the imprint text as either "html" or "markdown". default:
+  "html". example: `https://imprint.acdh.oeaw.ac.at/13777/?format=markdown`
+- `locale: "de" | "en"`: request the imprint text in either german ("de") or english ("en").
+  default: "en". example: `https://imprint.acdh.oeaw.ac.at/13777/?locale=de`
 
 ## how to run locally
 
