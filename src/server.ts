@@ -44,6 +44,7 @@ server.get("/:serviceId", async (req, res, next) => {
 
 		switch (format) {
 			case "markdown": {
+				res.set("Content-Type", "text/markdown");
 				return res.send(markdown);
 			}
 
