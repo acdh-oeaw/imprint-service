@@ -72,7 +72,6 @@ jobs:
       environment: ${{ needs.setup_workflow_env.outputs.environment }}
       registry_root: ${{ needs.setup_workflow_env.outputs.registry_root }}
       image_name: ${{ needs.setup_workflow_env.outputs.image_name }}
-      source_image: ${{ needs.setup_workflow_env.outputs.source_image }}
       default_port: ${{ needs.setup_workflow_env.outputs.default_port }}
       submodules: ${{ needs.setup_workflow_env.outputs.submodules }}
   _2:
