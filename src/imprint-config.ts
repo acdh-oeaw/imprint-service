@@ -1,7 +1,7 @@
 import * as YAML from "yaml";
 import { z } from "zod";
 
-import { type RedmineIssue } from "./redmine.js";
+import type { RedmineIssue } from "./redmine.js";
 
 const imprintParamsSchema = z.object({
 	value: z.string().min(1),

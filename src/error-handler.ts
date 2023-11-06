@@ -1,4 +1,4 @@
-import { type ErrorRequestHandler } from "express";
+import type { ErrorRequestHandler } from "express";
 
 import { ServerError } from "./server-error.js";
 
