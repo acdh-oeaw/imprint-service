@@ -36,6 +36,16 @@ describe("imprint endpoint GET /:service-id", () => {
 			});
 	});
 
+	it("should respond with xhtml when ?format=xhtml query param is set", () => {
+		const serviceId = 13777;
+		return request(server)
+			.get(`/${serviceId}/?format=xhtml`)
+			.expect(200)
+			.then((response) => {
+				assert.match(response.text, /<br \/>/);
+			});
+	});
+
 	it("should respond with german text when ?locale=de query param is set", () => {
 		const serviceId = 13777;
 		return request(server)

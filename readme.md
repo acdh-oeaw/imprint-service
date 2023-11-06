@@ -19,8 +19,8 @@ by default, the service returns the imprint text as html in english.
 
 the following options can be set via url query string:
 
-- `format: "html" | "markdown"`: request the imprint text as either "html" or "markdown". default:
-  "html". example: `https://imprint.acdh.oeaw.ac.at/21966/?format=markdown`
+- `format: "html" | "markdown" | "xhtml"`: request the imprint text as either "html", "xhtml" or
+  "markdown". default: "html". example: `https://imprint.acdh.oeaw.ac.at/21966/?format=markdown`
 - `locale: "de" | "en"`: request the imprint text in either german ("de") or english ("en").
   default: "en". example: `https://imprint.acdh.oeaw.ac.at/21966/?locale=de`
 

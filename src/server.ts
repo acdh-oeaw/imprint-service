@@ -8,9 +8,9 @@ import templite from "templite";
 import { z, ZodError } from "zod";
 
 import { locales } from "./config.js";
+import { convertMarkdownToHtml, convertMarkdownToXHtml } from "./conversion.js";
 import { errorHandler } from "./error-handler.js";
 import { getImprintConfig } from "./imprint-config.js";
-import { convertMarkdownToHtml } from "./markdown.js";
 import { getRedmineIssueById } from "./redmine.js";
 import { ServerError } from "./server-error.js";
 import { getTemplate } from "./template.js";
@@ -28,7 +28,7 @@ const pathParamsSchema = z.object({
 });
 
 const searchParamsSchema = z.object({
-	format: z.enum(["html", "markdown"]).default("html"),
+	format: z.enum(["html", "markdown", "xhtml"]).default("html"),
 	locale: z.enum(locales).default("en"),
 });
 
@@ -43,13 +43,18 @@ server.get("/:serviceId", async (req, res, next) => {
 		const markdown = templite(template, partials);
 
 		switch (format) {
+			case "html": {
+				const html = convertMarkdownToHtml(markdown);
+				return res.send(html);
+			}
+
 			case "markdown": {
 				res.set("Content-Type", "text/markdown");
 				return res.send(markdown);
 			}
 
-			case "html": {
-				const html = convertMarkdownToHtml(markdown);
+			case "xhtml": {
+				const html = convertMarkdownToXHtml(markdown);
 				return res.send(html);
 			}
 		}
