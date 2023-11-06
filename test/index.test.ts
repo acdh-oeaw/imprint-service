@@ -23,6 +23,7 @@ describe("imprint endpoint GET /:service-id", () => {
 			.expect(200)
 			.then((response) => {
 				assert.match(response.text, /<h2>Legal disclosure/i);
+				assert.match(response.text, /<br>/);
 			});
 	});
 
@@ -42,6 +43,7 @@ describe("imprint endpoint GET /:service-id", () => {
 			.get(`/${serviceId}/?format=xhtml`)
 			.expect(200)
 			.then((response) => {
+				assert.match(response.text, /<h2>Legal disclosure/i);
 				assert.match(response.text, /<br \/>/);
 			});
 	});
