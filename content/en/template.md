@@ -6,7 +6,7 @@
 Corporate body organized under public law (BGBl 569/1921 idF BGBl I 130/2003) \
 [Austrian Centre for Digital Humanities and Cultural Heritage (ACDH-CH)](https://acdh.oeaw.ac.at) \
 Dr. Ignaz Seipel-Platz 2, 1010 Vienna, Austria \
-E-Mail: [acdh-ch-helpdesk@oeaw.ac.at](mailto:acdh-ch-helpdesk@oeaw.ac.at)
+E-Mail: [acdh-ch-helpdesk(at)oeaw.ac.at](mailto:acdh-ch-helpdesk@oeaw.ac.at)
 
 {{ responsiblePersons }}
 
