@@ -5,6 +5,7 @@ import { HttpError } from "@acdh-oeaw/lib";
 import cors from "cors";
 import express from "express";
 import templite from "templite";
+import { YAMLParseError } from "yaml";
 import { z, ZodError } from "zod";
 
 import { locales } from "./config.js";
@@ -59,6 +60,15 @@ server.get("/:serviceId", async (req, res, next) => {
 			}
 		}
 	} catch (error) {
+		if (error instanceof YAMLParseError) {
+			return next(
+				new ServerError(
+					400,
+					"Validation error.\nReceived invalid YAML configuration from Redmine.",
+				),
+			);
+		}
+
 		if (error instanceof ZodError) {
 			return next(
 				new ServerError(
