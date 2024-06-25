@@ -10,7 +10,7 @@ export const errorHandler: ErrorRequestHandler = function errorHandler(
 ) {
 	if (response.headersSent) {
 		next(error);
-		return;
+		return undefined;
 	}
 
 	const { message, statusCode } =

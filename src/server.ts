@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-confusing-void-expression */
-/* eslint-disable @typescript-eslint/no-misused-promises */
 
 import { HttpError } from "@acdh-oeaw/lib";
 import cors from "cors";
@@ -57,6 +56,10 @@ server.get("/:serviceId", async (req, res, next) => {
 			case "xhtml": {
 				const html = convertMarkdownToXHtml(markdown);
 				return res.send(html);
+			}
+
+			default: {
+				return next();
 			}
 		}
 	} catch (error) {

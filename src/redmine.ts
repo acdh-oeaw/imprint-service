@@ -18,7 +18,7 @@ export type RedmineIssue = z.infer<typeof redmineIssueSchema>["issue"];
 
 export async function getRedmineIssueById(id: number): Promise<RedmineIssue> {
 	const url = createUrl({
-		pathname: `/issues/${id}.json`,
+		pathname: `/issues/${String(id)}.json`,
 		baseUrl: env.REDMINE_API_BASE_URL,
 	});
 

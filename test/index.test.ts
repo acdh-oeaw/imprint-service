@@ -17,9 +17,9 @@ describe("healthcheck endpoint GET /", () => {
 
 describe("imprint endpoint GET /:service-id", () => {
 	it("should respond with html text when service id is valid", () => {
-		const serviceId = 13777;
+		const serviceId = 21966;
 		return request(server)
-			.get(`/${serviceId}`)
+			.get(`/${String(serviceId)}`)
 			.expect(200)
 			.then((response) => {
 				assert.match(response.text, /<h2>Legal disclosure/i);
@@ -28,9 +28,9 @@ describe("imprint endpoint GET /:service-id", () => {
 	});
 
 	it("should respond with markdown when ?format=markdown query param is set", () => {
-		const serviceId = 13777;
+		const serviceId = 21966;
 		return request(server)
-			.get(`/${serviceId}/?format=markdown`)
+			.get(`/${String(serviceId)}/?format=markdown`)
 			.expect(200)
 			.then((response) => {
 				assert.match(response.text, /## Legal disclosure/);
@@ -38,9 +38,9 @@ describe("imprint endpoint GET /:service-id", () => {
 	});
 
 	it("should respond with xhtml when ?format=xhtml query param is set", () => {
-		const serviceId = 13777;
+		const serviceId = 21966;
 		return request(server)
-			.get(`/${serviceId}/?format=xhtml`)
+			.get(`/${String(serviceId)}/?format=xhtml`)
 			.expect(200)
 			.then((response) => {
 				assert.match(response.text, /<h2>Legal disclosure/i);
@@ -49,9 +49,9 @@ describe("imprint endpoint GET /:service-id", () => {
 	});
 
 	it("should respond with german text when ?locale=de query param is set", () => {
-		const serviceId = 13777;
+		const serviceId = 21966;
 		return request(server)
-			.get(`/${serviceId}/?locale=de`)
+			.get(`/${String(serviceId)}/?locale=de`)
 			.expect(200)
 			.then((response) => {
 				assert.match(response.text, /<h2>Offenlegung/);
@@ -59,9 +59,9 @@ describe("imprint endpoint GET /:service-id", () => {
 	});
 
 	it("should respond with german markdown when ?locale=de&format=de query params are set", () => {
-		const serviceId = 13777;
+		const serviceId = 21966;
 		return request(server)
-			.get(`/${serviceId}/?locale=de&format=markdown`)
+			.get(`/${String(serviceId)}/?locale=de&format=markdown`)
 			.expect(200)
 			.then((response) => {
 				assert.match(response.text, /## Offenlegung/);
