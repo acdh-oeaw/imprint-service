@@ -28,7 +28,7 @@ the following options can be set via url query string:
 
 custom text for "copyright notice", "matomo notice", "project nature", "responsible persons", and
 "website-aim" can be provided via the "ImprintParams" custom yaml field in the redmine service
-issue.
+issue. note: to use line-breaks in yaml, mark the text block with a ["literal block style"](https://yaml-multiline.info/) indicator `|-`.
 
 ## how to run locally
 
