@@ -1,6 +1,6 @@
-## Legal disclosure according to §§ 24, 25 Austrian media law and § 5 E-Commerce law:
+## Legal disclosure according to §§ 24, 25 Austrian media law and § 5 E-Commerce law
 
-### Media owner, publisher, responsible for content and editorial office, service provider:
+### Media owner, publisher, responsible for content and editorial office, service provider
 
 [Austrian Academy of Sciences](https://www.oeaw.ac.at/en/) \
 Corporate body organized under public law (BGBl 569/1921 idF BGBl I 130/2003) \
@@ -10,7 +10,7 @@ E-Mail: [acdh-ch-helpdesk(at)oeaw.ac.at](mailto:acdh-ch-helpdesk@oeaw.ac.at)
 
 {{ responsiblePersons }}
 
-### Nature and purpose of the business:
+### Nature and purpose of the business
 
 The Austrian Academy of Sciences (OEAW) has the legal duty to support the sciences and humanities in
 every respect. As a learned society, the OEAW fosters discourse and cooperation between science and
@@ -22,7 +22,7 @@ supports digital research in manifold ways.
 
 {{ projectNature }}
 
-### Signing power:
+### Signing power
 
 President: Univ.-Prof. Dr. phil. Heinz Faßmann \
 Vice President: Univ.-Prof. DI Dr. techn. Ulrike Diebold \
@@ -31,11 +31,11 @@ Class President: Prof. Dr. Wolfgang Baumjohann \
 Supervisory body: Academy council. For more information, please visit
 [https://www.oeaw.ac.at/en/oeaw/bodies/academy-council/](https://www.oeaw.ac.at/en/oeaw/bodies/academy-council/)
 
-### Main aim:
+### Main aim
 
 {{ websiteAim }}
 
-### Disclaimer:
+### Disclaimer
 
 The Austrian Academy of Sciences does not take responsibility for the nature, accuracy, entirety or
 quality of the provided information.
@@ -44,11 +44,11 @@ In the case of links to websites of other media owners, whose content the OEAW i
 nor indirectly responsible for, the OEAW does not assume liability for their content and excludes
 any liability in this case.
 
-### Copyright notice:
+### Copyright notice
 
 {{ copyrightNotice }}
 
-### Data privacy notice:
+### Data privacy notice
 
 {{ matomoNotice }}
 
