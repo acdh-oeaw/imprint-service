@@ -1,4 +1,4 @@
-## Offenlegung gemäß §§ 24, 25 Mediengesetz und § 5 E-Commerce-Gesetz:
+## Offenlegung gemäß §§ 24, 25 Mediengesetz und § 5 E-Commerce-Gesetz
 
 ### Medieninhaberin, Herausgeberin, inhaltliche und redaktionelle Verantwortung, Dienstanbieterin
 
