@@ -52,8 +52,9 @@ jobs:
       - name: Typecheck
         run: pnpm run types:check
 
-      - name: Test
-        run: pnpm run test
+      # Not running tests in CI/CD because they actually talk to the redmine api.
+      # - name: Test
+      #   run: pnpm run test
 
   build-deploy:
     name: Build and deploy
