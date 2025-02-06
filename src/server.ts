@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-confusing-void-expression */
 
-import { HttpError } from "@acdh-oeaw/lib";
+import { HttpError, request } from "@acdh-oeaw/lib";
 import cors from "cors";
 import express from "express";
 import templite from "templite";
@@ -9,6 +9,7 @@ import { z, ZodError } from "zod";
 
 import { locales } from "./config.js";
 import { convertMarkdownToHtml, convertMarkdownToXHtml } from "./conversion.js";
+import { env } from "./env.js";
 import { errorHandler } from "./error-handler.js";
 import { getImprintConfig } from "./imprint-config.js";
 import { getRedmineIssueById } from "./redmine.js";
@@ -19,8 +20,18 @@ const server = express();
 server.use(cors());
 
 /** Healthcheck, used by cluster. */
-server.get("/", (req, res) => {
-	res.send("OK");
+server.get("/", async (_req, res, next) => {
+	try {
+		/** Ensure redmine api is available. */
+		await request(env.REDMINE_API_BASE_URL, { responseType: "void" });
+		return res.send("OK");
+	} catch (error) {
+		if (error instanceof HttpError) {
+			return next(new ServerError(error.response.status, error.response.statusText));
+		}
+
+		return next(error);
+	}
 });
 
 const pathParamsSchema = z.object({
