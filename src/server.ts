@@ -20,10 +20,18 @@ const server = express();
 server.use(cors());
 
 /** Healthcheck, used by cluster. */
-server.get("/", async (_req, res) => {
-	/** Ensure redmine api is available. */
-	await request(env.REDMINE_API_BASE_URL, { responseType: "void" });
-	return res.send("OK");
+server.get("/", async (_req, res, next) => {
+	try {
+		/** Ensure redmine api is available. */
+		await request(env.REDMINE_API_BASE_URL, { responseType: "void" });
+		return res.send("OK");
+	} catch (error) {
+		if (error instanceof HttpError) {
+			return next(new ServerError(error.response.status, error.response.statusText));
+		}
+
+		return next(error);
+	}
 });
 
 const pathParamsSchema = z.object({
