@@ -5,7 +5,6 @@ const schema = z.object({
 	REDMINE_API_BASE_URL: z.string().url(),
 	REDMINE_USER: z.string().min(1),
 	REDMINE_PASSWORD: z.string().min(1),
-	SERVICE_ID: z.coerce.number(),
 });
 
 const result = schema.safeParse(process.env);
