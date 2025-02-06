@@ -9,6 +9,7 @@ import { z, ZodError } from "zod";
 
 import { locales } from "./config.js";
 import { convertMarkdownToHtml, convertMarkdownToXHtml } from "./conversion.js";
+import { env } from "./env.js";
 import { errorHandler } from "./error-handler.js";
 import { getImprintConfig } from "./imprint-config.js";
 import { getRedmineIssueById } from "./redmine.js";
@@ -19,8 +20,10 @@ const server = express();
 server.use(cors());
 
 /** Healthcheck, used by cluster. */
-server.get("/", (req, res) => {
-	res.send("OK");
+server.get("/", async (_req, res) => {
+	/** Ensure redmine api is available. */
+	await getRedmineIssueById(env.SERVICE_ID);
+	return res.send("OK");
 });
 
 const pathParamsSchema = z.object({
