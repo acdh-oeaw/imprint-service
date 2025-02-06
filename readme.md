@@ -28,14 +28,15 @@ the following options can be set via url query string:
 
 custom text for "copyright notice", "matomo notice", "project nature", "responsible persons", and
 "website-aim" can be provided via the "ImprintParams" custom yaml field in the redmine service
-issue. note: to use line-breaks in yaml, mark the text block with a ["literal block style"](https://yaml-multiline.info/) indicator `|-`.
+issue. note: to use line-breaks in yaml, mark the text block with a
+["literal block style"](https://yaml-multiline.info/) indicator `|-`.
 
 ## how to run locally
 
 prerequisites:
 
-- [node.js v18](https://nodejs.org/en/download)
-- [pnpm 8.x](https://pnpm.io/installation)
+- [node.js v22](https://nodejs.org/en/download)
+- [pnpm 9.x](https://pnpm.io/installation)
 
 set required environment variables in `.env`:
 
