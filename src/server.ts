@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-confusing-void-expression */
 
-import { HttpError } from "@acdh-oeaw/lib";
+import { HttpError, request } from "@acdh-oeaw/lib";
 import cors from "cors";
 import express from "express";
 import templite from "templite";
@@ -22,7 +22,7 @@ server.use(cors());
 /** Healthcheck, used by cluster. */
 server.get("/", async (_req, res) => {
 	/** Ensure redmine api is available. */
-	await getRedmineIssueById(env.SERVICE_ID);
+	await request(env.REDMINE_API_BASE_URL, { responseType: "void" });
 	return res.send("OK");
 });
 
