@@ -58,7 +58,17 @@ describe("imprint endpoint GET /:service-id", () => {
 			});
 	});
 
-	it("should respond with german markdown when ?locale=de&format=de query params are set", () => {
+	it("should respond with german text when ?locale=de-AT query param is set", () => {
+		const serviceId = 21966;
+		return request(server)
+			.get(`/${String(serviceId)}/?locale=de-AT`)
+			.expect(200)
+			.then((response) => {
+				assert.match(response.text, /<h2>Offenlegung/);
+			});
+	});
+
+	it("should respond with german markdown when ?locale=de&format=markdown query params are set", () => {
 		const serviceId = 21966;
 		return request(server)
 			.get(`/${String(serviceId)}/?locale=de&format=markdown`)

@@ -40,7 +40,14 @@ const pathParamsSchema = v.object({
 
 const searchParamsSchema = v.object({
 	format: v.optional(v.picklist(["html", "markdown", "xhtml"]), "html"),
-	locale: v.optional(v.picklist(locales), "en"),
+	locale: v.optional(
+		v.pipe(
+			v.string(),
+			v.transform((input) => new Intl.Locale(input).language),
+			v.picklist(locales),
+		),
+		"en",
+	),
 });
 
 server.get("/:serviceId", async (req, res, next) => {
