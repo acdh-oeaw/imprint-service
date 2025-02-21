@@ -1,22 +1,25 @@
-import { z } from "zod";
+import * as v from "valibot";
 
-const schema = z.object({
-	PORT: z.coerce.number().default(3000),
-	REDMINE_API_BASE_URL: z.string().url(),
-	REDMINE_USER: z.string().min(1),
-	REDMINE_PASSWORD: z.string().min(1),
+const schema = v.object({
+	PORT: v.optional(
+		v.pipe(v.unknown(), v.transform(Number), v.number(), v.integer(), v.minValue(1)),
+		3000,
+	),
+	REDMINE_API_BASE_URL: v.pipe(v.string(), v.url()),
+	REDMINE_USER: v.pipe(v.string(), v.nonEmpty()),
+	REDMINE_PASSWORD: v.pipe(v.string(), v.nonEmpty()),
 });
 
-const result = schema.safeParse(process.env);
+const result = v.safeParse(schema, process.env);
 
 if (!result.success) {
 	const message = [
 		"Invalid environment variables.",
-		JSON.stringify(result.error.flatten().fieldErrors, null, 2),
+		JSON.stringify(v.flatten(result.issues).nested, null, 2),
 	].join("\n");
 	const error = new Error(message);
 	delete error.stack;
 	throw error;
 }
 
-export const env = result.data;
+export const env = result.output;

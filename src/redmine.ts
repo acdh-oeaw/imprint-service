@@ -1,20 +1,20 @@
 import { createUrl, request } from "@acdh-oeaw/lib";
-import { z } from "zod";
+import * as v from "valibot";
 
 import { env } from "./env.js";
 
-const redmineIssueSchema = z.object({
-	issue: z.object({
-		custom_fields: z.array(
-			z.object({
-				name: z.string(),
-				value: z.unknown(),
+const redmineIssueSchema = v.object({
+	issue: v.object({
+		custom_fields: v.array(
+			v.object({
+				name: v.string(),
+				value: v.unknown(),
 			}),
 		),
 	}),
 });
 
-export type RedmineIssue = z.infer<typeof redmineIssueSchema>["issue"];
+export type RedmineIssue = v.InferOutput<typeof redmineIssueSchema>["issue"];
 
 export async function getRedmineIssueById(id: number): Promise<RedmineIssue> {
 	const url = createUrl({
@@ -31,7 +31,7 @@ export async function getRedmineIssueById(id: number): Promise<RedmineIssue> {
 		responseType: "json",
 	});
 
-	const { issue } = redmineIssueSchema.parse(response);
+	const { issue } = v.parse(redmineIssueSchema, response);
 
 	return issue;
 }

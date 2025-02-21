@@ -1,40 +1,57 @@
+import * as v from "valibot";
 import * as YAML from "yaml";
-import { z } from "zod";
 
 import type { RedmineIssue } from "./redmine.js";
 
-const imprintParamsSchema = z.object({
-	value: z.string().min(1),
+const imprintParamsSchema = v.object({
+	value: v.pipe(v.string(), v.nonEmpty()),
 });
 
-const imprintConfigSchema = z.object({
+const imprintConfigSchema = v.object({
 	/** we ignore `language` setting from redmine. */
-	copyrightNotice: z
-		.object({ de: z.string().min(1).nullish(), en: z.string().min(1).nullish() })
-		.optional(),
-	hasMatomo: z.boolean().default(true),
-	matomoNotice: z
-		.object({ de: z.string().min(1).nullish(), en: z.string().min(1).nullish() })
-		.optional(),
-	projectNature: z
-		.object({ de: z.string().min(1).nullish(), en: z.string().min(1).nullish() })
-		.optional(),
-	responsiblePersons: z
-		.object({ de: z.string().min(1).nullish(), en: z.string().min(1).nullish() })
-		.optional(),
-	websiteAim: z
-		.object({ de: z.string().min(1).nullish(), en: z.string().min(1).nullish() })
-		.optional(),
+	copyrightNotice: v.optional(
+		v.object({
+			de: v.nullish(v.pipe(v.string(), v.nonEmpty())),
+			en: v.nullish(v.pipe(v.string(), v.nonEmpty())),
+		}),
+	),
+	hasMatomo: v.optional(v.boolean(), true),
+	matomoNotice: v.optional(
+		v.object({
+			de: v.nullish(v.pipe(v.string(), v.nonEmpty())),
+			en: v.nullish(v.pipe(v.string(), v.nonEmpty())),
+		}),
+	),
+	projectNature: v.optional(
+		v.object({
+			de: v.nullish(v.pipe(v.string(), v.nonEmpty())),
+			en: v.nullish(v.pipe(v.string(), v.nonEmpty())),
+		}),
+	),
+	responsiblePersons: v.optional(
+		v.object({
+			de: v.nullish(v.pipe(v.string(), v.nonEmpty())),
+			en: v.nullish(v.pipe(v.string(), v.nonEmpty())),
+		}),
+	),
+	websiteAim: v.optional(
+		v.object({
+			de: v.nullish(v.pipe(v.string(), v.nonEmpty())),
+			en: v.nullish(v.pipe(v.string(), v.nonEmpty())),
+		}),
+	),
 });
 
-export type ImprintConfig = z.infer<typeof imprintConfigSchema>;
+export type ImprintConfig = v.InferOutput<typeof imprintConfigSchema>;
 
 export function getImprintConfig(issue: RedmineIssue): ImprintConfig {
-	const params = imprintParamsSchema.parse(
+	const params = v.parse(
+		imprintParamsSchema,
 		issue.custom_fields.find((field) => field.name === "ImprintParams"),
 	).value;
 
-	const config = imprintConfigSchema.parse(
+	const config = v.parse(
+		imprintConfigSchema,
 		/** Use YAML 1.1 to parse 'yes'/'no' on `hasMatomo` as booleans. */
 		YAML.parse(params, { version: "1.1" }),
 	);

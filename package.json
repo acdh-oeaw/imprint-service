@@ -34,8 +34,8 @@
 		"remark-rehype": "^11.1.0",
 		"templite": "^1.2.0",
 		"unified": "^11.0.5",
-		"yaml": "^2.4.5",
-		"zod": "^3.23.8"
+		"valibot": "^1.0.0-rc.1",
+		"yaml": "^2.4.5"
 	},
 	"devDependencies": {
 		"@acdh-oeaw/commitlint-config": "^1.0.0",

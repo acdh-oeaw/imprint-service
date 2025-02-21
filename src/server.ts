@@ -4,8 +4,8 @@ import { HttpError, request } from "@acdh-oeaw/lib";
 import cors from "cors";
 import express from "express";
 import templite from "templite";
+import * as v from "valibot";
 import { YAMLParseError } from "yaml";
-import { z, ZodError } from "zod";
 
 import { locales } from "./config.js";
 import { convertMarkdownToHtml, convertMarkdownToXHtml } from "./conversion.js";
@@ -34,19 +34,19 @@ server.get("/", async (_req, res, next) => {
 	}
 });
 
-const pathParamsSchema = z.object({
-	serviceId: z.coerce.number().int().positive(),
+const pathParamsSchema = v.object({
+	serviceId: v.pipe(v.string(), v.transform(Number), v.number(), v.integer(), v.minValue(1)),
 });
 
-const searchParamsSchema = z.object({
-	format: z.enum(["html", "markdown", "xhtml"]).default("html"),
-	locale: z.enum(locales).default("en"),
+const searchParamsSchema = v.object({
+	format: v.optional(v.picklist(["html", "markdown", "xhtml"]), "html"),
+	locale: v.optional(v.picklist(locales), "en"),
 });
 
 server.get("/:serviceId", async (req, res, next) => {
 	try {
-		const { serviceId } = pathParamsSchema.parse(req.params);
-		const { locale, format } = searchParamsSchema.parse(req.query);
+		const { serviceId } = v.parse(pathParamsSchema, req.params);
+		const { locale, format } = v.parse(searchParamsSchema, req.query);
 
 		const issue = await getRedmineIssueById(serviceId);
 		const config = getImprintConfig(issue);
@@ -83,11 +83,11 @@ server.get("/:serviceId", async (req, res, next) => {
 			);
 		}
 
-		if (error instanceof ZodError) {
+		if (v.isValiError(error)) {
 			return next(
 				new ServerError(
 					400,
-					"Validation error.\n" + JSON.stringify(error.flatten().fieldErrors, null, 2),
+					"Validation error.\n" + JSON.stringify(v.flatten(error.issues).nested, null, 2),
 				),
 			);
 		}
