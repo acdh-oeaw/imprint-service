@@ -18,7 +18,7 @@ Zusammenarbeit der Wissenschaft mit Öffentlichkeit, Politik und Wirtschaft.
 
 Das Austrian Centre for Digital Humanities (ACDH) ist ein Institut der ÖAW, das mit dem Ziel
 gegründet wurde, digitale Methoden und Ansätze in den geisteswissenschaftlichen Disziplinen zu
-fördern. Das ACDH-CH unterstützt digitale Forschung in vielfältiger Weise.
+fördern. Das ACDH unterstützt digitale Forschung in vielfältiger Weise.
 
 {{ projectNature }}
 

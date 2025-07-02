@@ -17,7 +17,7 @@ every respect. As a learned society, the OEAW fosters discourse and cooperation 
 society, politics and economy.
 
 The Austrian Centre for Digital Humanities (ACDH) is an OEAW institute founded with the goal to
-support digital methods in arts and humanities disciplines. The ACDH-CH supports digital research in
+support digital methods in arts and humanities disciplines. The ACDH supports digital research in
 manifold ways.
 
 {{ projectNature }}
