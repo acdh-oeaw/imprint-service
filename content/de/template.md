@@ -4,7 +4,7 @@
 
 [Österreichische Akademie der Wissenschaften](https://www.oeaw.ac.at) \
 Juristische Person öffentlichen Rechts (BGBl 569/1921 idF BGBl I 130/2003) \
-[Austrian Centre for Digital Humanities and Cultural Heritage (ACDH-CH)](https://acdh.oeaw.ac.at) \
+[Austrian Centre for Digital Humanities (ACDH)](https://acdh.oeaw.ac.at) \
 Dr. Ignaz Seipel-Platz 2, 1010 Wien, Österreich \
 E-Mail: [acdh-ch-helpdesk(at)oeaw.ac.at](mailto:acdh-ch-helpdesk@oeaw.ac.at)
 
@@ -16,7 +16,7 @@ Die Österreichische Akademie der Wissenschaften (ÖAW) hat den gesetzlichen Auf
 in jeder Hinsicht zu fördern. Als Gelehrtengesellschaft pflegt die ÖAW den Diskurs und die
 Zusammenarbeit der Wissenschaft mit Öffentlichkeit, Politik und Wirtschaft.
 
-Das Austrian Centre for Digital Humanities and Cultural Heritage (ACDH-CH) ist ein Institut der ÖAW,
+Das Austrian Centre for Digital Humanities (ACDH) ist ein Institut der ÖAW,
 das mit dem Ziel gegründet wurde, digitale Methoden und Ansätze in den geisteswissenschaftlichen
 Disziplinen zu fördern. Das ACDH-CH unterstützt digitale Forschung in vielfältiger Weise.
 
