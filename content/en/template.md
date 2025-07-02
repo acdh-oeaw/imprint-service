@@ -4,7 +4,7 @@
 
 [Austrian Academy of Sciences](https://www.oeaw.ac.at/en/) \
 Corporate body organized under public law (BGBl 569/1921 idF BGBl I 130/2003) \
-[Austrian Centre for Digital Humanities and Cultural Heritage (ACDH-CH)](https://acdh.oeaw.ac.at) \
+[Austrian Centre for Digital Humanities (ACDH)](https://acdh.oeaw.ac.at) \
 Dr. Ignaz Seipel-Platz 2, 1010 Vienna, Austria \
 E-Mail: [acdh-ch-helpdesk(at)oeaw.ac.at](mailto:acdh-ch-helpdesk@oeaw.ac.at)
 
@@ -16,9 +16,9 @@ The Austrian Academy of Sciences (OEAW) has the legal duty to support the scienc
 every respect. As a learned society, the OEAW fosters discourse and cooperation between science and
 society, politics and economy.
 
-The Austrian Centre for Digital Humanities and Cultural Heritage (ACDH-CH) is an OEAW institute
-founded with the goal to support digital methods in arts and humanities disciplines. The ACDH-CH
-supports digital research in manifold ways.
+The Austrian Centre for Digital Humanities (ACDH) is an OEAW institute founded with the goal to
+support digital methods in arts and humanities disciplines. The ACDH-CH supports digital research in
+manifold ways.
 
 {{ projectNature }}
 
