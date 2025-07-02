@@ -16,9 +16,9 @@ Die Österreichische Akademie der Wissenschaften (ÖAW) hat den gesetzlichen Auf
 in jeder Hinsicht zu fördern. Als Gelehrtengesellschaft pflegt die ÖAW den Diskurs und die
 Zusammenarbeit der Wissenschaft mit Öffentlichkeit, Politik und Wirtschaft.
 
-Das Austrian Centre for Digital Humanities (ACDH) ist ein Institut der ÖAW,
-das mit dem Ziel gegründet wurde, digitale Methoden und Ansätze in den geisteswissenschaftlichen
-Disziplinen zu fördern. Das ACDH-CH unterstützt digitale Forschung in vielfältiger Weise.
+Das Austrian Centre for Digital Humanities (ACDH) ist ein Institut der ÖAW, das mit dem Ziel
+gegründet wurde, digitale Methoden und Ansätze in den geisteswissenschaftlichen Disziplinen zu
+fördern. Das ACDH-CH unterstützt digitale Forschung in vielfältiger Weise.
 
 {{ projectNature }}
 

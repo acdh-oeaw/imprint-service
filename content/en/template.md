@@ -16,9 +16,9 @@ The Austrian Academy of Sciences (OEAW) has the legal duty to support the scienc
 every respect. As a learned society, the OEAW fosters discourse and cooperation between science and
 society, politics and economy.
 
-The Austrian Centre for Digital Humanities (ACDH) is an OEAW institute
-founded with the goal to support digital methods in arts and humanities disciplines. The ACDH-CH
-supports digital research in manifold ways.
+The Austrian Centre for Digital Humanities (ACDH) is an OEAW institute founded with the goal to
+support digital methods in arts and humanities disciplines. The ACDH-CH supports digital research in
+manifold ways.
 
 {{ projectNature }}
 
