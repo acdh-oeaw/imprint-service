@@ -1,6 +1,6 @@
 # imprint service
 
-service to retrieve acdh-ch imprint text as html or markdown.
+service to retrieve acdh imprint text as html or markdown.
 
 ## how to use
 

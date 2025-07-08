@@ -6,7 +6,7 @@
 Juristische Person öffentlichen Rechts (BGBl 569/1921 idF BGBl I 130/2003) \
 [Austrian Centre for Digital Humanities (ACDH)](https://acdh.oeaw.ac.at) \
 Dr. Ignaz Seipel-Platz 2, 1010 Wien, Österreich \
-E-Mail: [acdh-ch-helpdesk(at)oeaw.ac.at](mailto:acdh-ch-helpdesk@oeaw.ac.at)
+E-Mail: [acdh-helpdesk(at)oeaw.ac.at](mailto:acdh-helpdesk@oeaw.ac.at)
 
 {{ responsiblePersons }}
 
