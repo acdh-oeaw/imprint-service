@@ -1,5 +1,5 @@
-import { env } from "./env.js";
-import { server } from "./server.js";
+import { env } from "./env.ts";
+import { server } from "./server.ts";
 
 server.listen(env.PORT, () => {
 	// eslint-disable-next-line no-console

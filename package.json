@@ -4,14 +4,14 @@
 	"license": "MIT",
 	"type": "module",
 	"exports": {
-		".": "./dist/index.js"
+		".": "./dist/index.mjs"
 	},
 	"engines": {
 		"node": "^24"
 	},
 	"packageManager": "pnpm@10.24.0",
 	"scripts": {
-		"build": "tsup-node ./src/index.ts",
+		"build": "tsdown ./src/index.ts",
 		"dev": "dotenv -c development -- tsx watch ./src/index.ts",
 		"format:check": "prettier . --cache --check",
 		"format:fix": "pnpm run format:check --write",
@@ -19,8 +19,8 @@
 		"lint:fix": "pnpm run lint:check --fix",
 		"preinstall": "npx only-allow pnpm",
 		"setup": "is-in-ci || simple-git-hooks",
-		"start": "dotenv -c production -- node ./dist/index.js",
-		"test": "dotenv -c test -- node --import tsx --test --test-reporter spec ./test/**/*.test.ts",
+		"start": "dotenv -c production -- node ./dist/index.mjs",
+		"test": "dotenv -c test -- node --test --test-reporter spec ./test/**/*.test.ts",
 		"types:check": "tsc --noEmit",
 		"validate": "run-p format:check lint:check types:check test"
 	},
@@ -56,8 +56,7 @@
 		"npm-run-all2": "^8.0.4",
 		"prettier": "^3.7.1",
 		"supertest": "^7.1.4",
-		"tsup": "^8.5.1",
-		"tsx": "^4.20.6",
+		"tsdown": "^0.16.8",
 		"typescript": "^5.9.3"
 	},
 	"commitlint": {

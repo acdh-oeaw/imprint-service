@@ -1,8 +1,8 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 
-import { type Locale, locales } from "./config.js";
-import type { ImprintConfig } from "./imprint-config.js";
+import { type Locale, locales } from "./config.ts";
+import type { ImprintConfig } from "./imprint-config.ts";
 
 function read(locale: Locale, name: string) {
 	const filePath = join(process.cwd(), "content", locale, [name, "md"].join("."));

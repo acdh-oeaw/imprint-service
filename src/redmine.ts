@@ -1,7 +1,7 @@
 import { createUrl, request } from "@acdh-oeaw/lib";
 import * as v from "valibot";
 
-import { env } from "./env.js";
+import { env } from "./env.ts";
 
 const redmineIssueSchema = v.object({
 	issue: v.object({

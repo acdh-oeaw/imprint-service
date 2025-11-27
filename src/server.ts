@@ -7,14 +7,14 @@ import templite from "templite";
 import * as v from "valibot";
 import { YAMLParseError } from "yaml";
 
-import { locales } from "./config.js";
-import { convertMarkdownToHtml, convertMarkdownToXHtml } from "./conversion.js";
-import { env } from "./env.js";
-import { errorHandler } from "./error-handler.js";
-import { getImprintConfig } from "./imprint-config.js";
-import { getRedmineIssueById } from "./redmine.js";
-import { ServerError } from "./server-error.js";
-import { getTemplate } from "./template.js";
+import { locales } from "./config.ts";
+import { convertMarkdownToHtml, convertMarkdownToXHtml } from "./conversion.ts";
+import { env } from "./env.ts";
+import { errorHandler } from "./error-handler.ts";
+import { getImprintConfig } from "./imprint-config.ts";
+import { getRedmineIssueById } from "./redmine.ts";
+import { ServerError } from "./server-error.ts";
+import { getTemplate } from "./template.ts";
 
 const server = express();
 server.use(cors());
