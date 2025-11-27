@@ -2,7 +2,6 @@
 	"$schema": "https://json.schemastore.org/tsconfig",
 	"extends": "@acdh-oeaw/tsconfig",
 	"compilerOptions": {
-		"lib": ["es2022"],
 		"outDir": "dist"
 	},
 	"include": ["./**/*.ts"],
