@@ -34,14 +34,13 @@ const templatesByLocale = new Map<Locale, Template>(
 );
 
 export function getTemplate(locale: Locale, { hasMatomo, ...config }: ImprintConfig): Template {
-	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	const templates = templatesByLocale.get(locale)!;
 
 	const partials = {
 		copyrightNotice: config.copyrightNotice?.[locale] ?? templates.partials.copyrightNotice,
 		matomoNotice: !hasMatomo
 			? ""
-			: config.matomoNotice?.[locale] ?? templates.partials.matomoNotice,
+			: (config.matomoNotice?.[locale] ?? templates.partials.matomoNotice),
 		projectNature: config.projectNature?.[locale] ?? templates.partials.projectNature,
 		responsiblePersons:
 			config.responsiblePersons?.[locale] ?? templates.partials.responsiblePersons,

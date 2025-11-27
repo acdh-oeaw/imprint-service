@@ -20,6 +20,7 @@ const server = express();
 server.use(cors());
 
 /** Healthcheck, used by cluster. */
+// eslint-disable-next-line @typescript-eslint/no-misused-promises
 server.get("/", async (_req, res, next) => {
 	try {
 		/** Ensure redmine api is available. */
@@ -50,6 +51,7 @@ const searchParamsSchema = v.object({
 	),
 });
 
+// eslint-disable-next-line @typescript-eslint/no-misused-promises
 server.get("/:serviceId", async (req, res, next) => {
 	try {
 		const { serviceId } = v.parse(pathParamsSchema, req.params);
@@ -94,7 +96,7 @@ server.get("/:serviceId", async (req, res, next) => {
 			return next(
 				new ServerError(
 					400,
-					"Validation error.\n" + JSON.stringify(v.flatten(error.issues).nested, null, 2),
+					`Validation error.\n${JSON.stringify(v.flatten(error.issues).nested, null, 2)}`,
 				),
 			);
 		}

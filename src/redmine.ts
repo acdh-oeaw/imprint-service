@@ -24,9 +24,10 @@ export async function getRedmineIssueById(id: number): Promise<RedmineIssue> {
 
 	const response = await request(url, {
 		headers: {
-			Authorization:
-				"Basic " +
-				Buffer.from([env.REDMINE_USER, env.REDMINE_PASSWORD].join(":"), "utf-8").toString("base64"),
+			Authorization: `Basic ${Buffer.from(
+				[env.REDMINE_USER, env.REDMINE_PASSWORD].join(":"),
+				"utf-8",
+			).toString("base64")}`,
 		},
 		responseType: "json",
 	});

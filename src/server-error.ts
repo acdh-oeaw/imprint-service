@@ -1,10 +1,9 @@
 export class ServerError extends Error {
 	name = "ServerError";
+	statusCode: number;
 
-	constructor(
-		public statusCode: number,
-		message: string,
-	) {
+	constructor(statusCode: number, message: string) {
 		super(message);
+		this.statusCode = statusCode;
 	}
 }
