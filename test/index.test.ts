@@ -7,7 +7,7 @@ import { describe, it } from "node:test";
 
 import request from "supertest";
 
-import { server } from "../src/server.js";
+import { server } from "../src/server.ts";
 
 describe("healthcheck endpoint GET /", () => {
 	it("should respond with 200 OK", () => {

@@ -1,7 +1,7 @@
 import * as v from "valibot";
 import * as YAML from "yaml";
 
-import type { RedmineIssue } from "./redmine.js";
+import type { RedmineIssue } from "./redmine.ts";
 
 const imprintParamsSchema = v.object({
 	value: v.pipe(v.string(), v.nonEmpty()),

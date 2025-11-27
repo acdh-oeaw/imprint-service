@@ -1,6 +1,6 @@
 import type { ErrorRequestHandler } from "express";
 
-import { ServerError } from "./server-error.js";
+import { ServerError } from "./server-error.ts";
 
 export const errorHandler: ErrorRequestHandler = function errorHandler(
 	error,
