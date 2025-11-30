@@ -1,3 +1,4 @@
+import { log } from "@acdh-oeaw/lib";
 import type { ErrorRequestHandler } from "express";
 
 import { ServerError } from "./server-error.ts";
@@ -8,6 +9,8 @@ export const errorHandler: ErrorRequestHandler = function errorHandler(
 	response,
 	next,
 ) {
+	log.error(error);
+
 	if (response.headersSent) {
 		next(error);
 		return undefined;
