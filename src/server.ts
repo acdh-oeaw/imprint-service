@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-confusing-void-expression */
 
-import { HttpError, request } from "@acdh-oeaw/lib";
+import { HttpError, log, request } from "@acdh-oeaw/lib";
 import cors from "cors";
 import express from "express";
 import templite from "templite";
@@ -81,6 +81,8 @@ server.get("/:serviceId", async (req, res, next) => {
 			}
 		}
 	} catch (error) {
+		log.error(error);
+
 		if (error instanceof YAMLParseError) {
 			return next(
 				new ServerError(
