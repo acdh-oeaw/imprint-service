@@ -27,14 +27,14 @@
 	"dependencies": {
 		"@acdh-oeaw/lib": "^0.3.7",
 		"cors": "^2.8.5",
-		"express": "^5.1.0",
+		"express": "^5.2.0",
 		"rehype-stringify": "^10.0.1",
 		"remark-parse": "^11.0.0",
 		"remark-rehype": "^11.1.2",
 		"templite": "^1.2.0",
 		"unified": "^11.0.5",
 		"valibot": "^1.2.0",
-		"yaml": "^2.8.1"
+		"yaml": "^2.8.2"
 	},
 	"devDependencies": {
 		"@acdh-oeaw/commitlint-config": "^3.0.0",
@@ -54,7 +54,7 @@
 		"is-in-ci": "^2.0.0",
 		"lint-staged": "^16.2.7",
 		"npm-run-all2": "^8.0.4",
-		"prettier": "^3.7.1",
+		"prettier": "^3.7.3",
 		"supertest": "^7.1.4",
 		"tsdown": "^0.16.8",
 		"typescript": "^5.9.3"
