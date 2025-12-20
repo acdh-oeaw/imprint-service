@@ -1,12 +1,10 @@
 {
 	"configurations": [
 		{
-			"name": "Server",
+			"name": "Debug server",
+			"type": "node-terminal",
 			"request": "launch",
-			"runtimeArgs": ["run", "dev"],
-			"runtimeExecutable": "pnpm",
-			"skipFiles": ["<node_internals>/**"],
-			"type": "node"
+			"command": "bun run dev"
 		}
 	]
 }

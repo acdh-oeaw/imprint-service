@@ -2,8 +2,8 @@
 	"$schema": "https://json.schemastore.org/tsconfig",
 	"extends": "@acdh-oeaw/tsconfig",
 	"compilerOptions": {
-		"outDir": "dist"
+		"jsx": "react-jsx",
+		"jsxImportSource": "hono/jsx"
 	},
-	"include": ["./**/*.ts"],
-	"exclude": ["dist", "node_modules"]
+	"include": ["./**/*.ts"]
 }

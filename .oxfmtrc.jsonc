@@ -1,0 +1,10 @@
+{
+	"$schema": "./node_modules/oxfmt/configuration_schema.json",
+	"experimentalSortImports": {
+		"groups": [["side-effect"], ["builtin"], ["external"], ["internal", "subpath"], ["unknown"]],
+	},
+	"experimentalSortPackageJson": false,
+	"ignorePatterns": ["/content"],
+	"proseWrap": "always",
+	"useTabs": true,
+}

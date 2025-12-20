@@ -2,10 +2,6 @@
 
 # dependencies
 node_modules/
-.pnpm-store/
-
-# build output
-dist/
 
 # logs
 *.log
@@ -16,7 +12,6 @@ dist/
 !.env.example
 
 # caches
-.eslintcache
 *.tsbuildinfo
 
 # misc
