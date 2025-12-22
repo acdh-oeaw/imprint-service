@@ -63,16 +63,16 @@ app.get(
 		switch (format) {
 			case "html": {
 				const html = convertMarkdownToHtml(markdown);
-				return c.text(html, 200, { "Content-Type": "text/html" });
+				return c.text(html, 200, { "Content-Type": "text/html; charset=UTF-8" });
 			}
 
 			case "markdown": {
-				return c.text(markdown, 200, { "Content-Type": "text/markdown" });
+				return c.text(markdown, 200, { "Content-Type": "text/markdown; charset=UTF-8" });
 			}
 
 			case "xhtml": {
 				const html = convertMarkdownToXHtml(markdown);
-				return c.text(html, 200, { "Content-Type": "application/xhtml+xml" });
+				return c.text(html, 200, { "Content-Type": "application/xhtml+xml; charset=UTF-8" });
 			}
 		}
 	},

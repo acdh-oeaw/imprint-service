@@ -36,7 +36,7 @@ describe("imprint endpoint GET /:id", () => {
 		expect(text).toMatch(/<h2>Legal disclosure/i);
 		expect(text).toMatch(/<br>/);
 		const contentType = res.headers.get("Content-Type");
-		expect(contentType).toBe("text/html");
+		expect(contentType).toBe("text/html; charset=UTF-8");
 	});
 
 	it("should work with trailing slash", async () => {
@@ -91,7 +91,7 @@ describe("imprint endpoint GET /:id", () => {
 		const text = await res.text();
 		expect(text).toMatch(/## Legal disclosure/i);
 		const contentType = res.headers.get("Content-Type");
-		expect(contentType).toBe("text/markdown");
+		expect(contentType).toBe("text/markdown; charset=UTF-8");
 	});
 
 	it("should respond with xhtml when ?format=xhtml query param is set", async () => {
@@ -112,7 +112,7 @@ describe("imprint endpoint GET /:id", () => {
 		expect(text).toMatch(/<h2>Legal disclosure/i);
 		expect(text).toMatch(/<br \/>/);
 		const contentType = res.headers.get("Content-Type");
-		expect(contentType).toBe("application/xhtml+xml");
+		expect(contentType).toBe("application/xhtml+xml; charset=UTF-8");
 	});
 
 	it("should respond with german text when ?locale=de query param is set", async () => {
