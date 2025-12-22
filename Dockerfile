@@ -1,26 +1,26 @@
 # syntax=docker/dockerfile:1
 
-FROM node:24-slim
+# base
+FROM oven/bun:1-slim AS base
 
-RUN corepack enable
+WORKDIR /usr/src/app
 
-RUN mkdir /app && chown -R node:node /app
-WORKDIR /app
+# build
+FROM base AS build
 
-USER node
+COPY package.json bun.lock ./
+RUN bun install --frozen-lockfile
 
-COPY --chown=node:node .npmrc package.json pnpm-lock.yaml pnpm-workspace.yaml ./
-
-RUN pnpm fetch
-
-COPY --chown=node:node ./ ./
-
-RUN pnpm install --frozen-lockfile --offline
-
+COPY . .
 ENV NODE_ENV=production
+RUN bun run build
 
-RUN pnpm run build
+# serve
+FROM base AS serve
 
+COPY --from=build /usr/src/app/index.js .
+COPY --from=build /usr/src/app/content content
+
+USER bun
 EXPOSE 3000
-
-CMD ["node", "./dist/index.mjs"]
+ENTRYPOINT [ "bun", "run", "index.js" ]

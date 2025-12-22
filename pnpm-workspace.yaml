@@ -1,7 +1,0 @@
-onlyBuiltDependencies:
-  - esbuild
-  - unrs-resolver
-
-shellEmulator: true
-
-strictDepBuilds: true

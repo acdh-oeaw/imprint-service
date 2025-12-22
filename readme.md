@@ -35,8 +35,7 @@ issue. note: to use line-breaks in yaml, mark the text block with a
 
 prerequisites:
 
-- [node.js v24](https://nodejs.org/en/download)
-- [pnpm 10.x](https://pnpm.io/installation)
+- [bun v1](https://bun.com/docs)
 
 set required environment variables in `.env`:
 
@@ -47,5 +46,5 @@ cp .env.example .env
 run a development server at <http://localhost:3000>:
 
 ```bash
-pnpm run dev
+bun run dev
 ```
