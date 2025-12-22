@@ -42,6 +42,7 @@ const searchParamsSchema = v.object({
 		),
 		"en",
 	),
+	redmine: v.optional(v.picklist(["disabled", "enabled"]), "enabled"),
 });
 
 app.get(
@@ -50,10 +51,12 @@ app.get(
 	validator("query", searchParamsSchema),
 	async (c) => {
 		const { id: serviceId } = c.req.valid("param");
-		const { format, locale } = c.req.valid("query");
+		const { format, locale, redmine } = c.req.valid("query");
 
-		const issue = await getRedmineIssueById(serviceId);
-		const config = getImprintConfig(issue);
+		const config =
+			redmine !== "disabled"
+				? getImprintConfig(await getRedmineIssueById(serviceId))
+				: { hasMatomo: true };
 		const { template, partials } = getTemplate(locale, config);
 		const markdown = templite(template, partials);
 

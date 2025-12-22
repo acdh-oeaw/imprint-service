@@ -23,6 +23,9 @@ the following options can be set via url query string:
   "markdown". default: "html". example: `https://imprint.acdh.oeaw.ac.at/21966/?format=markdown`
 - `locale: "de" | "en"`: request the imprint text in either german ("de") or english ("en").
   default: "en". example: `https://imprint.acdh.oeaw.ac.at/21966/?locale=de`
+- `redmine: "disabled" | "enabled"`: whether to query the redmine api for custom imprint
+  configuration. setting to "disabled" will return a default imprint text with `hasMatomo: true`.
+  default: "enabled". example: `https://imprint.acdh.oeaw.ac.at/21966/?redmine=disabled`
 
 ### custom text
 
