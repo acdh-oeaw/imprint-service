@@ -55,6 +55,25 @@ describe("imprint endpoint GET /:id", () => {
 		expect(text).toMatch(/<br>/);
 	});
 
+	it("should reponse with default text when ?redmine=disabled", async () => {
+		const serviceId = 21966;
+		const req = new Request(
+			createUrl({
+				baseUrl,
+				pathname: `/${String(serviceId)}/`,
+				searchParams: createUrlSearchParams({
+					redmine: "disabled",
+				}),
+			}),
+		);
+		const res = await app.request(req);
+		const status = res.status;
+		expect(status).toBe(200);
+		const text = await res.text();
+		expect(text).toMatch(/<h2>Legal disclosure/i);
+		expect(text).toMatch(/<br>/);
+	});
+
 	it("should respond with markdown when ?format=markdown query param is set", async () => {
 		const serviceId = 21966;
 		const req = new Request(
