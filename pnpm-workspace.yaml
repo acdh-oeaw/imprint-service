@@ -1,0 +1,8 @@
+allowBuilds:
+  lefthook: true
+
+engineStrict: true
+
+minimumReleaseAge: 1440
+
+shellEmulator: true

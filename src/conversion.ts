@@ -10,8 +10,7 @@ export function convertMarkdownToHtml(markdown: string): string {
 }
 
 /**
- * This is *not* a full-blown xhtml serialiser, but should be good enough for
- * this usecase.
+ * This is _not_ a full-blown xhtml serialiser, but should be good enough for this usecase.
  *
  * In case we really need it, we should switch to [`xast`](https://github.com/syntax-tree/xast).
  */

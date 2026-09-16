@@ -8,7 +8,7 @@ const imprintParamsSchema = v.object({
 });
 
 const imprintConfigSchema = v.object({
-	/** we ignore `language` setting from redmine. */
+	/** We ignore `language` setting from redmine. */
 	copyrightNotice: v.optional(
 		v.object({
 			de: v.nullish(v.pipe(v.string(), v.nonEmpty())),
