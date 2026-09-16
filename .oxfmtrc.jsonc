@@ -1,6 +1,6 @@
 {
 	"$schema": "./node_modules/oxfmt/configuration_schema.json",
-	"ignorePatterns": ["pnpm-workspace.yaml", "content/"],
+	"ignorePatterns": ["content/"],
 	"jsdoc": true,
 	"printWidth": 100,
 	"sortImports": {
