@@ -1,8 +1,3 @@
 {
-	"recommendations": [
-		"dbaeumer.vscode-eslint",
-		"editorconfig.editorconfig",
-		"mikestead.dotenv",
-		"oxc.oxc-vscode"
-	]
+	"recommendations": ["editorconfig.editorconfig", "mikestead.dotenv", "oxc.oxc-vscode"]
 }
