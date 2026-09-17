@@ -11,6 +11,7 @@
 		"nursery": "off",
 	},
 	"rules": {
+		"curly": "error",
 		"no-shadow": "off",
 	},
 }
