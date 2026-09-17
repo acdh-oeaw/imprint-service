@@ -10,12 +10,12 @@ import { locales } from "./config";
 import { convertMarkdownToHtml } from "./conversion";
 import { env } from "./env";
 import { getImprintConfig, ImprintConfigParseError } from "./imprint-config";
-import { logger, type Logger } from "./logger";
+import { logger, type LoggerEnv } from "./logger";
 import { getRedmineIssueById } from "./redmine";
 import { renderTemplate } from "./template";
 import { validator } from "./validator";
 
-const app = new Hono<{ Variables: { logger: Logger } }>({ strict: false });
+const app = new Hono<LoggerEnv>({ strict: false });
 
 app.use(cors(), requestId(), logger());
 
@@ -115,17 +115,9 @@ function getErrorResponse(error: unknown): ErrorResponse {
 	return { status: 500, message: "Internal server error" };
 }
 
+/** Errors are logged by the logger middleware. */
 app.onError((error, c) => {
-	const { logger } = c.var;
-
 	const { status, message } = getErrorResponse(error);
-
-	/** Client errors are expected, only log server errors at error level. */
-	if (status >= 500) {
-		logger.error(error);
-	} else {
-		logger.warn(error);
-	}
 
 	return c.json({ message }, status);
 });
