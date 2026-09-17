@@ -29,7 +29,7 @@ app.get("/", async (c) => {
 });
 
 const pathParamsSchema = v.object({
-	id: v.pipe(v.string(), v.transform(Number), v.number(), v.integer(), v.minValue(1)),
+	id: v.pipe(v.string(), v.toNumber(), v.integer(), v.minValue(1)),
 });
 
 const searchParamsSchema = v.object({

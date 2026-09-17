@@ -6,10 +6,7 @@ const schema = v.object({
 		"info",
 	),
 	NODE_ENV: v.optional(v.picklist(["development", "production", "test"]), "production"),
-	PORT: v.optional(
-		v.pipe(v.unknown(), v.transform(Number), v.number(), v.integer(), v.minValue(1)),
-		3000,
-	),
+	PORT: v.optional(v.pipe(v.string(), v.toNumber(), v.integer(), v.minValue(1)), "3000"),
 	REDMINE_API_BASE_URL: v.pipe(v.string(), v.url()),
 	REDMINE_USER: v.pipe(v.string(), v.nonEmpty()),
 	REDMINE_PASSWORD: v.pipe(v.string(), v.nonEmpty()),
