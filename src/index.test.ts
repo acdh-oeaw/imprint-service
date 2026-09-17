@@ -38,7 +38,7 @@ describe("imprint endpoint GET /:id", () => {
 		expect(status).toBe(200);
 		const text = await res.text();
 		expect(text).toMatch(/<h2>Legal disclosure/i);
-		expect(text).toMatch(/<br>/);
+		expect(text).toMatch(/<br \/>/);
 		const contentType = res.headers.get("Content-Type");
 		expect(contentType).toBe("text/html; charset=UTF-8");
 	});
@@ -58,7 +58,7 @@ describe("imprint endpoint GET /:id", () => {
 		expect(status).toBe(200);
 		const text = await res.text();
 		expect(text).toMatch(/<h2>Legal disclosure/i);
-		expect(text).toMatch(/<br>/);
+		expect(text).toMatch(/<br \/>/);
 	});
 
 	it("should reponse with default text when ?redmine=disabled", async () => {
@@ -79,7 +79,7 @@ describe("imprint endpoint GET /:id", () => {
 		expect(status).toBe(200);
 		const text = await res.text();
 		expect(text).toMatch(/<h2>Legal disclosure/i);
-		expect(text).toMatch(/<br>/);
+		expect(text).toMatch(/<br \/>/);
 	});
 
 	it("should respond with markdown when ?format=markdown query param is set", async () => {

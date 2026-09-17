@@ -1,24 +1,9 @@
-import toHtml from "rehype-stringify";
-import fromMarkdown from "remark-parse";
-import toHast from "remark-rehype";
-import { unified } from "unified";
-
-const htmlProcessor = unified().use(fromMarkdown).use(toHast).use(toHtml);
-
-export function convertMarkdownToHtml(markdown: string): string {
-	return String(htmlProcessor.processSync(markdown));
-}
-
 /**
- * This is _not_ a full-blown xhtml serialiser, but should be good enough for this usecase.
+ * Raw html in markdown is escaped, so that custom text from redmine cannot inject markup.
  *
- * In case we really need it, we should switch to [`xast`](https://github.com/syntax-tree/xast).
+ * Void elements are serialised self-closing (`<br />`), so the output is valid html as well as
+ * xhtml.
  */
-const xhtmlProcessor = unified()
-	.use(fromMarkdown)
-	.use(toHast)
-	.use(toHtml, { closeSelfClosing: true });
-
-export function convertMarkdownToXHtml(markdown: string): string {
-	return String(xhtmlProcessor.processSync(markdown));
+export function convertMarkdownToHtml(markdown: string): string {
+	return Bun.markdown.html(markdown, { noHtmlBlocks: true, noHtmlSpans: true });
 }
