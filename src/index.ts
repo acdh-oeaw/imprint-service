@@ -65,7 +65,6 @@ app.get(
 				: { hasMatomo: true };
 		const markdown = renderTemplate(locale, config);
 
-		/** Void elements are serialised self-closing, so the html output is valid xhtml as well. */
 		const body = format === "markdown" ? markdown : convertMarkdownToHtml(markdown);
 
 		return c.text(body, 200, { "Content-Type": `${contentTypes[format]}; charset=UTF-8` });
