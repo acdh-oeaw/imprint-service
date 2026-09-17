@@ -4,6 +4,8 @@ import { validator as honoValidator } from "hono/validator";
 import * as v from "valibot";
 
 export function validator<
+	/** Needed to infer the target-specific type of `c.req.valid()`. */
+	// oxlint-disable-next-line typescript/no-unnecessary-type-parameters
 	TValidationTarget extends keyof ValidationTargets,
 	TValidationSchema extends v.GenericSchema | v.GenericSchemaAsync,
 >(target: TValidationTarget, schema: TValidationSchema) {

@@ -1,4 +1,4 @@
-import { type Locale, locales } from "./config";
+import type { Locale } from "./config";
 import type { ImprintConfig } from "./imprint-config";
 
 type PartialName = Exclude<keyof ImprintConfig, "hasMatomo">;
@@ -12,25 +12,24 @@ function read(locale: Locale, name: string): Promise<string> {
 	return Bun.file(`content/${locale}/${name}.md`).text();
 }
 
-const templatesByLocale = Object.fromEntries(
-	await Promise.all(
-		locales.map(async (locale): Promise<[Locale, Template]> => {
-			return [
-				locale,
-				{
-					template: await read(locale, "template"),
-					partials: {
-						copyrightNotice: await read(locale, "copyright-notice"),
-						matomoNotice: await read(locale, "matomo-notice"),
-						projectNature: await read(locale, "project-nature"),
-						responsiblePersons: await read(locale, "responsible-persons"),
-						websiteAim: await read(locale, "website-aim"),
-					},
-				},
-			];
-		}),
-	),
-) as Record<Locale, Template>;
+async function loadTemplate(locale: Locale): Promise<Template> {
+	return {
+		template: await read(locale, "template"),
+		partials: {
+			copyrightNotice: await read(locale, "copyright-notice"),
+			matomoNotice: await read(locale, "matomo-notice"),
+			projectNature: await read(locale, "project-nature"),
+			responsiblePersons: await read(locale, "responsible-persons"),
+			websiteAim: await read(locale, "website-aim"),
+		},
+	};
+}
+
+/** Typed as a record, so that adding a locale to `config.ts` requires adding its templates here. */
+const templatesByLocale: Record<Locale, Template> = {
+	de: await loadTemplate("de"),
+	en: await loadTemplate("en"),
+};
 
 const placeholder = /{{\s*(\w+)\s*}}/g;
 

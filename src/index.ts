@@ -45,6 +45,12 @@ const searchParamsSchema = v.object({
 	redmine: v.optional(v.picklist(["disabled", "enabled"]), "enabled"),
 });
 
+const contentTypes = {
+	html: "text/html",
+	markdown: "text/markdown",
+	xhtml: "application/xhtml+xml",
+} satisfies Record<v.InferOutput<typeof searchParamsSchema>["format"], string>;
+
 app.get(
 	"/:id",
 	validator("param", pathParamsSchema),
@@ -59,21 +65,10 @@ app.get(
 				: { hasMatomo: true };
 		const markdown = renderTemplate(locale, config);
 
-		switch (format) {
-			case "html": {
-				const html = convertMarkdownToHtml(markdown);
-				return c.text(html, 200, { "Content-Type": "text/html; charset=UTF-8" });
-			}
+		/** Void elements are serialised self-closing, so the html output is valid xhtml as well. */
+		const body = format === "markdown" ? markdown : convertMarkdownToHtml(markdown);
 
-			case "markdown": {
-				return c.text(markdown, 200, { "Content-Type": "text/markdown; charset=UTF-8" });
-			}
-
-			case "xhtml": {
-				const html = convertMarkdownToHtml(markdown);
-				return c.text(html, 200, { "Content-Type": "application/xhtml+xml; charset=UTF-8" });
-			}
-		}
+		return c.text(body, 200, { "Content-Type": `${contentTypes[format]}; charset=UTF-8` });
 	},
 );
 

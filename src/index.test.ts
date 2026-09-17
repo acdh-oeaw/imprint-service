@@ -204,7 +204,7 @@ describe("imprint endpoint GET /:id", () => {
 		const req = new Request(
 			String(
 				createUrl({
-					pathname: `/${String(serviceId)}`,
+					pathname: `/${serviceId}`,
 				}),
 			),
 		);
