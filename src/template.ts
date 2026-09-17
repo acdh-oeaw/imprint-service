@@ -1,51 +1,60 @@
-import { readFileSync } from "node:fs";
-import { join } from "node:path";
-
-import { type Locale, locales } from "./config";
+import type { Locale } from "./config";
 import type { ImprintConfig } from "./imprint-config";
 
-function read(locale: Locale, name: string) {
-	const filePath = join(process.cwd(), "content", locale, [name, "md"].join("."));
+type PartialName = Exclude<keyof ImprintConfig, "hasMatomo">;
 
-	return readFileSync(filePath, { encoding: "utf-8" });
-}
-
-export interface Template {
+interface Template {
 	template: string;
-	partials: Record<Exclude<keyof ImprintConfig, "hasMatomo">, string>;
+	partials: Record<PartialName, string>;
 }
 
-const templatesByLocale = new Map<Locale, Template>(
-	locales.map((locale) => {
-		return [
-			locale,
-			{
-				template: read(locale, "template"),
-				partials: {
-					copyrightNotice: read(locale, "copyright-notice"),
-					matomoNotice: read(locale, "matomo-notice"),
-					projectNature: read(locale, "project-nature"),
-					responsiblePersons: read(locale, "responsible-persons"),
-					websiteAim: read(locale, "website-aim"),
-				},
-			},
-		];
-	}),
-);
+function read(locale: Locale, name: string): Promise<string> {
+	return Bun.file(`content/${locale}/${name}.md`).text();
+}
 
-export function getTemplate(locale: Locale, { hasMatomo, ...config }: ImprintConfig): Template {
-	const templates = templatesByLocale.get(locale)!;
+async function loadTemplate(locale: Locale): Promise<Template> {
+	return {
+		template: await read(locale, "template"),
+		partials: {
+			copyrightNotice: await read(locale, "copyright-notice"),
+			matomoNotice: await read(locale, "matomo-notice"),
+			projectNature: await read(locale, "project-nature"),
+			responsiblePersons: await read(locale, "responsible-persons"),
+			websiteAim: await read(locale, "website-aim"),
+		},
+	};
+}
 
-	const partials = {
-		copyrightNotice: config.copyrightNotice?.[locale] ?? templates.partials.copyrightNotice,
-		matomoNotice: !hasMatomo
-			? ""
-			: (config.matomoNotice?.[locale] ?? templates.partials.matomoNotice),
-		projectNature: config.projectNature?.[locale] ?? templates.partials.projectNature,
-		responsiblePersons:
-			config.responsiblePersons?.[locale] ?? templates.partials.responsiblePersons,
-		websiteAim: config.websiteAim?.[locale] ?? templates.partials.websiteAim,
+const templatesByLocale: Record<Locale, Template> = {
+	de: await loadTemplate("de"),
+	en: await loadTemplate("en"),
+};
+
+const placeholder = /{{\s*(\w+)\s*}}/g;
+
+function isPartialName(name: string, partials: Record<PartialName, string>): name is PartialName {
+	return Object.hasOwn(partials, name);
+}
+
+/** Fail at startup when a template references an unknown partial. */
+for (const [locale, { template, partials }] of Object.entries(templatesByLocale)) {
+	for (const [, name] of template.matchAll(placeholder)) {
+		if (!isPartialName(name!, partials)) {
+			throw new Error(`Unknown placeholder "${name!}" in "${locale}" template`);
+		}
+	}
+}
+
+export function renderTemplate(locale: Locale, { hasMatomo, ...config }: ImprintConfig): string {
+	const { template, partials } = templatesByLocale[locale];
+
+	const values: Record<PartialName, string> = {
+		copyrightNotice: config.copyrightNotice?.[locale] ?? partials.copyrightNotice,
+		matomoNotice: !hasMatomo ? "" : (config.matomoNotice?.[locale] ?? partials.matomoNotice),
+		projectNature: config.projectNature?.[locale] ?? partials.projectNature,
+		responsiblePersons: config.responsiblePersons?.[locale] ?? partials.responsiblePersons,
+		websiteAim: config.websiteAim?.[locale] ?? partials.websiteAim,
 	};
 
-	return { template: templates.template, partials };
+	return template.replace(placeholder, (_, name: PartialName) => values[name]);
 }

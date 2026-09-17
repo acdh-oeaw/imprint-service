@@ -2,10 +2,6 @@ import * as v from "valibot";
 
 import type { RedmineIssue } from "./redmine";
 
-const imprintParamsSchema = v.object({
-	value: v.pipe(v.string(), v.nonEmpty()),
-});
-
 const imprintConfigSchema = v.object({
 	/** We ignore `language` setting from redmine. */
 	copyrightNotice: v.optional(
@@ -59,8 +55,8 @@ const imprintConfigSchema = v.object({
 export type ImprintConfig = v.InferOutput<typeof imprintConfigSchema>;
 
 export class ImprintConfigParseError extends Error {
-	constructor(options?: ErrorOptions) {
-		super("Failed to parse imprint config", options);
+	constructor(message: string, options?: ErrorOptions) {
+		super(message, options);
 		this.name = "ImprintConfigParseError";
 	}
 }
@@ -69,17 +65,25 @@ function parseYaml(input: string): unknown {
 	try {
 		return Bun.YAML.parse(input);
 	} catch (error) {
-		throw new ImprintConfigParseError({ cause: error });
+		throw new ImprintConfigParseError(error instanceof Error ? error.message : "Invalid yaml", {
+			cause: error,
+		});
 	}
 }
 
 export function getImprintConfig(issue: RedmineIssue): ImprintConfig {
-	const params = v.parse(
-		imprintParamsSchema,
-		issue.custom_fields.find((field) => field.name === "ImprintParams"),
-	).value;
+	const params = issue.custom_fields.find((field) => field.name === "ImprintParams")?.value;
 
-	const config = v.parse(imprintConfigSchema, parseYaml(params));
+	/** Redmine returns an empty string for unset custom fields. */
+	if (typeof params !== "string" || params.trim() === "") {
+		throw new ImprintConfigParseError('Missing "ImprintParams" custom field');
+	}
 
-	return config;
+	const result = v.safeParse(imprintConfigSchema, parseYaml(params));
+
+	if (!result.success) {
+		throw new ImprintConfigParseError(v.summarize(result.issues), { cause: result.issues });
+	}
+
+	return result.output;
 }

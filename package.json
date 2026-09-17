@@ -18,12 +18,9 @@
 		"types:check": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@acdh-oeaw/lib": "^0.3.7",
-		"@acdh-oeaw/validate-env": "^0.2.1",
+		"@hono/structured-logger": "^1.0.0",
 		"hono": "^4.13.8",
-		"hono-pino": "^0.10.3",
 		"pino": "^10.3.1",
-		"templite": "^1.2.0",
 		"valibot": "^1.5.0"
 	},
 	"devDependencies": {
