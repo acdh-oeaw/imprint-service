@@ -12,6 +12,18 @@ export class HttpError extends Error {
 	}
 }
 
+/** Redmine could not be reached, or did not respond in time. */
+export class UnreachableError extends Error {
+	readonly timedOut: boolean;
+
+	constructor(cause: unknown) {
+		const timedOut = cause instanceof DOMException && cause.name === "TimeoutError";
+		super(timedOut ? "Request timed out" : "Unable to connect", { cause });
+		this.name = "UnreachableError";
+		this.timedOut = timedOut;
+	}
+}
+
 const timeout = 10_000;
 const maxAttempts = 3;
 const retryStatusCodes = new Set([408, 425, 429, 500, 502, 503, 504]);
@@ -27,7 +39,13 @@ async function fetchRedmine(pathname: string, init?: RequestInit): Promise<Respo
 	const url = new URL(pathname, env.REDMINE_API_BASE_URL);
 
 	for (let attempt = 1; ; attempt++) {
-		const response = await fetch(url, { ...init, signal: AbortSignal.timeout(timeout) });
+		let response: Response;
+
+		try {
+			response = await fetch(url, { ...init, signal: AbortSignal.timeout(timeout) });
+		} catch (error) {
+			throw new UnreachableError(error);
+		}
 
 		if (response.ok) {
 			return response;

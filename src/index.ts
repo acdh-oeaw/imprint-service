@@ -9,7 +9,7 @@ import { locales } from "./config";
 import { convertMarkdownToHtml } from "./conversion";
 import { getImprintConfig, ImprintConfigParseError } from "./imprint-config";
 import { logger, type LoggerEnv } from "./logger";
-import { getRedmineIssueById, HttpError, pingRedmine } from "./redmine";
+import { getRedmineIssueById, HttpError, pingRedmine, UnreachableError } from "./redmine";
 import { renderTemplate } from "./template";
 import { validator } from "./validator";
 
@@ -107,6 +107,12 @@ function getErrorResponse(error: unknown): ErrorResponse {
 		}
 
 		return { status: 502, message: "Upstream redmine error" };
+	}
+
+	if (error instanceof UnreachableError) {
+		return error.timedOut
+			? { status: 504, message: "Redmine api timed out" }
+			: { status: 502, message: "Redmine api unreachable" };
 	}
 
 	return { status: 500, message: "Internal server error" };
