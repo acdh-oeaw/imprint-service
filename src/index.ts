@@ -4,7 +4,6 @@ import { cors } from "hono/cors";
 import { HTTPException } from "hono/http-exception";
 import { requestId } from "hono/request-id";
 import type { ContentfulStatusCode } from "hono/utils/http-status";
-import templite from "templite";
 import * as v from "valibot";
 
 import { locales } from "./config";
@@ -13,7 +12,7 @@ import { env } from "./env";
 import { getImprintConfig, ImprintConfigParseError } from "./imprint-config";
 import { logger, type Logger } from "./logger";
 import { getRedmineIssueById } from "./redmine";
-import { getTemplate } from "./template";
+import { renderTemplate } from "./template";
 import { validator } from "./validator";
 
 const app = new Hono<{ Variables: { logger: Logger } }>({ strict: false });
@@ -61,8 +60,7 @@ app.get(
 			redmine !== "disabled"
 				? getImprintConfig(await getRedmineIssueById(serviceId))
 				: { hasMatomo: true };
-		const { template, partials } = getTemplate(locale, config);
-		const markdown = templite(template, partials);
+		const markdown = renderTemplate(locale, config);
 
 		switch (format) {
 			case "html": {
