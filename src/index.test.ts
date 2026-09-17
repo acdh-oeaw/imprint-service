@@ -188,6 +188,21 @@ describe("imprint endpoint GET /:id", () => {
 		expect(text).toMatch(/## Offenlegung/i);
 	});
 
+	it("should respond with 404 Not Found when service id does not exist", async () => {
+		const serviceId = 999999999;
+		const req = new Request(
+			String(
+				createUrl({
+					baseUrl,
+					pathname: `/${String(serviceId)}`,
+				}),
+			),
+		);
+		const res = await app.request(req);
+		const status = res.status;
+		expect(status).toBe(404);
+	});
+
 	it("should respond with 400 Bad Request when service id is invalid", async () => {
 		const serviceId = "abc";
 		const req = new Request(

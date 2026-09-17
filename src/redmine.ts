@@ -5,11 +5,15 @@ import { env } from "./env";
 
 const redmineIssueSchema = v.object({
 	issue: v.object({
-		custom_fields: v.array(
-			v.object({
-				name: v.string(),
-				value: v.unknown(),
-			}),
+		/** Only present when the issue's tracker has custom fields. */
+		custom_fields: v.optional(
+			v.array(
+				v.object({
+					name: v.string(),
+					value: v.unknown(),
+				}),
+			),
+			[],
 		),
 	}),
 });
