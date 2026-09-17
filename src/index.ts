@@ -7,7 +7,7 @@ import templite from "templite";
 import * as v from "valibot";
 
 import { locales } from "./config";
-import { convertMarkdownToHtml, convertMarkdownToXHtml } from "./conversion";
+import { convertMarkdownToHtml } from "./conversion";
 import { env } from "./env";
 import { getImprintConfig, ImprintConfigParseError } from "./imprint-config";
 import { logger, type Logger } from "./logger";
@@ -70,7 +70,7 @@ app.get(
 			}
 
 			case "xhtml": {
-				const html = convertMarkdownToXHtml(markdown);
+				const html = convertMarkdownToHtml(markdown);
 				return c.text(html, 200, { "Content-Type": "application/xhtml+xml; charset=UTF-8" });
 			}
 		}

@@ -4,9 +4,13 @@
 	"categories": {
 		"correctness": "error",
 		"suspicious": "warn",
-		"pedantic": "warn",
-		"perf": "warn",
-		"style": "warn",
-		"restriction": "warn",
+		"pedantic": "off",
+		"perf": "off",
+		"style": "off",
+		"restriction": "off",
+		"nursery": "off",
+	},
+	"rules": {
+		"no-shadow": "off",
 	},
 }

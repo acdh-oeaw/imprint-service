@@ -14,7 +14,7 @@
 		"format:fix": "oxfmt --write",
 		"lint:check": "oxlint --report-unused-disable-directives --type-aware --type-check",
 		"lint:fix": "oxlint --fix --report-unused-disable-directives --type-aware --type-check",
-		"test": "bun test src/index.test.ts",
+		"test": "bun test",
 		"types:check": "tsc --noEmit"
 	},
 	"dependencies": {
@@ -23,11 +23,7 @@
 		"hono": "^4.13.8",
 		"hono-pino": "^0.10.3",
 		"pino": "^10.3.1",
-		"rehype-stringify": "^10.0.1",
-		"remark-parse": "^11.0.0",
-		"remark-rehype": "^11.1.2",
 		"templite": "^1.2.0",
-		"unified": "^11.0.5",
 		"valibot": "^1.5.0"
 	},
 	"devDependencies": {
