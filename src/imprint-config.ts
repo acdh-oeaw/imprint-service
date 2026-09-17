@@ -1,5 +1,4 @@
 import * as v from "valibot";
-import * as YAML from "yaml";
 
 import type { RedmineIssue } from "./redmine";
 
@@ -15,7 +14,22 @@ const imprintConfigSchema = v.object({
 			en: v.nullish(v.pipe(v.string(), v.nonEmpty())),
 		}),
 	),
-	hasMatomo: v.optional(v.boolean(), true),
+	/**
+	 * `Bun.YAML` implements YAML 1.2, which parses 'yes'/'no'/'on'/'off' as strings, so we accept
+	 * those as booleans ourselves for backwards compatibility with YAML 1.1.
+	 */
+	hasMatomo: v.optional(
+		v.union([
+			v.boolean(),
+			v.pipe(
+				v.string(),
+				v.toLowerCase(),
+				v.picklist(["yes", "no", "on", "off"]),
+				v.transform((input) => input === "yes" || input === "on"),
+			),
+		]),
+		true,
+	),
 	matomoNotice: v.optional(
 		v.object({
 			de: v.nullish(v.pipe(v.string(), v.nonEmpty())),
@@ -44,17 +58,28 @@ const imprintConfigSchema = v.object({
 
 export type ImprintConfig = v.InferOutput<typeof imprintConfigSchema>;
 
+export class ImprintConfigParseError extends Error {
+	constructor(options?: ErrorOptions) {
+		super("Failed to parse imprint config", options);
+		this.name = "ImprintConfigParseError";
+	}
+}
+
+function parseYaml(input: string): unknown {
+	try {
+		return Bun.YAML.parse(input);
+	} catch (error) {
+		throw new ImprintConfigParseError({ cause: error });
+	}
+}
+
 export function getImprintConfig(issue: RedmineIssue): ImprintConfig {
 	const params = v.parse(
 		imprintParamsSchema,
 		issue.custom_fields.find((field) => field.name === "ImprintParams"),
 	).value;
 
-	const config = v.parse(
-		imprintConfigSchema,
-		/** Use YAML 1.1 to parse 'yes'/'no' on `hasMatomo` as booleans. */
-		YAML.parse(params, { version: "1.1" }),
-	);
+	const config = v.parse(imprintConfigSchema, parseYaml(params));
 
 	return config;
 }

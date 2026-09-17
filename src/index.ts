@@ -5,12 +5,11 @@ import { HTTPException } from "hono/http-exception";
 import { requestId } from "hono/request-id";
 import templite from "templite";
 import * as v from "valibot";
-import { YAMLParseError } from "yaml";
 
 import { locales } from "./config";
 import { convertMarkdownToHtml, convertMarkdownToXHtml } from "./conversion";
 import { env } from "./env";
-import { getImprintConfig } from "./imprint-config";
+import { getImprintConfig, ImprintConfigParseError } from "./imprint-config";
 import { logger, type Logger } from "./logger";
 import { getRedmineIssueById } from "./redmine";
 import { getTemplate } from "./template";
@@ -91,7 +90,7 @@ app.onError((error, c) => {
 		return error.getResponse();
 	}
 
-	if (error instanceof YAMLParseError) {
+	if (error instanceof ImprintConfigParseError) {
 		return c.json({ message: "Invalid redmine config" }, 400);
 	}
 
