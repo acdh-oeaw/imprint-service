@@ -1,4 +1,3 @@
-import { HttpError, request } from "@acdh-oeaw/lib";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { HTTPException } from "hono/http-exception";
@@ -8,10 +7,9 @@ import * as v from "valibot";
 
 import { locales } from "./config";
 import { convertMarkdownToHtml } from "./conversion";
-import { env } from "./env";
 import { getImprintConfig, ImprintConfigParseError } from "./imprint-config";
 import { logger, type LoggerEnv } from "./logger";
-import { getRedmineIssueById } from "./redmine";
+import { getRedmineIssueById, HttpError, pingRedmine } from "./redmine";
 import { renderTemplate } from "./template";
 import { validator } from "./validator";
 
@@ -21,9 +19,8 @@ app.use(cors(), requestId(), logger());
 
 /** Healthcheck, used by cluster. */
 app.get("/", async (c) => {
-	/** Ensure redmine api is available. */
 	try {
-		await request(env.REDMINE_API_BASE_URL, { responseType: "void" });
+		await pingRedmine();
 	} catch (error) {
 		throw new HTTPException(503, { cause: error, message: "Redmine api unavailable" });
 	}

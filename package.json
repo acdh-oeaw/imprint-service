@@ -18,7 +18,6 @@
 		"types:check": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@acdh-oeaw/lib": "^0.3.7",
 		"@hono/structured-logger": "^1.0.0",
 		"hono": "^4.13.8",
 		"pino": "^10.3.1",

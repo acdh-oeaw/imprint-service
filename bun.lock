@@ -5,7 +5,6 @@
     "": {
       "name": "impr",
       "dependencies": {
-        "@acdh-oeaw/lib": "^0.3.7",
         "@hono/structured-logger": "^1.0.0",
         "hono": "^4.13.8",
         "pino": "^10.3.1",
@@ -23,8 +22,6 @@
     },
   },
   "packages": {
-    "@acdh-oeaw/lib": ["@acdh-oeaw/lib@0.3.7", "", {}, "sha512-ayIAgoslwm60grK0H2g5D2rust5PS3+35gMqNILmQN3AT4Vr4MGepSTxu9nko8It8E8wcN+OG8DTkfiKz9vrPg=="],
-
     "@hono/structured-logger": ["@hono/structured-logger@1.0.0", "", { "peerDependencies": { "hono": ">=4.0.0" } }, "sha512-MozQvH7oFsi/Pc/0sK6ai7cYpDX81t4UnrxgOo/MslfC7lPFnRcvayVkY3g1Wi/cX6dFmtLhZoGALOfdvAIDgA=="],
 
     "@oxfmt/binding-android-arm-eabi": ["@oxfmt/binding-android-arm-eabi@0.68.0", "", { "os": "android", "cpu": "arm" }, "sha512-dhfYPbzv/h9JgHjNkl2R6sOjUfxDyLGOZVb3g8/ScaTNwwJcYgmHh8kcYFDUhinuy1QAoANCWUvw1jlk+z6gAg=="],

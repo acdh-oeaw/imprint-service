@@ -1,17 +1,22 @@
 import { describe, expect, it } from "bun:test";
 
-import { createUrl, createUrlSearchParams } from "@acdh-oeaw/lib";
-
 import app from ".";
 
 const baseUrl = "http://localhost:3000";
+
+function createUrl(params: { pathname: string; searchParams?: Record<string, string> }): URL {
+	const url = new URL(params.pathname, baseUrl);
+	if (params.searchParams != null) {
+		url.search = String(new URLSearchParams(params.searchParams));
+	}
+	return url;
+}
 
 describe("healthcheck endpoint GET /", () => {
 	it("should respond with 200 OK", async () => {
 		const req = new Request(
 			String(
 				createUrl({
-					baseUrl,
 					pathname: "/",
 				}),
 			),
@@ -28,7 +33,6 @@ describe("imprint endpoint GET /:id", () => {
 		const req = new Request(
 			String(
 				createUrl({
-					baseUrl,
 					pathname: `/${String(serviceId)}`,
 				}),
 			),
@@ -48,7 +52,6 @@ describe("imprint endpoint GET /:id", () => {
 		const req = new Request(
 			String(
 				createUrl({
-					baseUrl,
 					pathname: `/${String(serviceId)}/`,
 				}),
 			),
@@ -66,11 +69,10 @@ describe("imprint endpoint GET /:id", () => {
 		const req = new Request(
 			String(
 				createUrl({
-					baseUrl,
 					pathname: `/${String(serviceId)}/`,
-					searchParams: createUrlSearchParams({
+					searchParams: {
 						redmine: "disabled",
-					}),
+					},
 				}),
 			),
 		);
@@ -87,11 +89,10 @@ describe("imprint endpoint GET /:id", () => {
 		const req = new Request(
 			String(
 				createUrl({
-					baseUrl,
 					pathname: `/${String(serviceId)}`,
-					searchParams: createUrlSearchParams({
+					searchParams: {
 						format: "markdown",
-					}),
+					},
 				}),
 			),
 		);
@@ -109,11 +110,10 @@ describe("imprint endpoint GET /:id", () => {
 		const req = new Request(
 			String(
 				createUrl({
-					baseUrl,
 					pathname: `/${String(serviceId)}`,
-					searchParams: createUrlSearchParams({
+					searchParams: {
 						format: "xhtml",
-					}),
+					},
 				}),
 			),
 		);
@@ -132,11 +132,10 @@ describe("imprint endpoint GET /:id", () => {
 		const req = new Request(
 			String(
 				createUrl({
-					baseUrl,
 					pathname: `/${String(serviceId)}`,
-					searchParams: createUrlSearchParams({
+					searchParams: {
 						locale: "de",
-					}),
+					},
 				}),
 			),
 		);
@@ -152,11 +151,10 @@ describe("imprint endpoint GET /:id", () => {
 		const req = new Request(
 			String(
 				createUrl({
-					baseUrl,
 					pathname: `/${String(serviceId)}`,
-					searchParams: createUrlSearchParams({
+					searchParams: {
 						locale: "de-AT",
-					}),
+					},
 				}),
 			),
 		);
@@ -172,12 +170,11 @@ describe("imprint endpoint GET /:id", () => {
 		const req = new Request(
 			String(
 				createUrl({
-					baseUrl,
 					pathname: `/${String(serviceId)}`,
-					searchParams: createUrlSearchParams({
+					searchParams: {
 						locale: "de",
 						format: "markdown",
-					}),
+					},
 				}),
 			),
 		);
@@ -193,7 +190,6 @@ describe("imprint endpoint GET /:id", () => {
 		const req = new Request(
 			String(
 				createUrl({
-					baseUrl,
 					pathname: `/${String(serviceId)}`,
 				}),
 			),
@@ -208,7 +204,6 @@ describe("imprint endpoint GET /:id", () => {
 		const req = new Request(
 			String(
 				createUrl({
-					baseUrl,
 					pathname: `/${String(serviceId)}`,
 				}),
 			),
