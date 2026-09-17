@@ -34,7 +34,7 @@ function getRetryDelay(response: Response): number {
 	return seconds >= 1 && seconds <= 10 ? seconds * 1000 : 250;
 }
 
-/** Retries transient upstream errors, like `@acdh-oeaw/lib`'s `request` helper did. */
+/** Retries transient upstream errors. */
 async function fetchRedmine(pathname: string, init?: RequestInit): Promise<Response> {
 	const url = new URL(pathname, env.REDMINE_API_BASE_URL);
 

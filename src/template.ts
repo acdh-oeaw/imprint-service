@@ -25,7 +25,6 @@ async function loadTemplate(locale: Locale): Promise<Template> {
 	};
 }
 
-/** Typed as a record, so that adding a locale to `config.ts` requires adding its templates here. */
 const templatesByLocale: Record<Locale, Template> = {
 	de: await loadTemplate("de"),
 	en: await loadTemplate("en"),
