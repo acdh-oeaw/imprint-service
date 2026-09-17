@@ -1,13 +1,8 @@
-import { readFileSync } from "node:fs";
-import { join } from "node:path";
-
 import { type Locale, locales } from "./config";
 import type { ImprintConfig } from "./imprint-config";
 
-function read(locale: Locale, name: string) {
-	const filePath = join(process.cwd(), "content", locale, [name, "md"].join("."));
-
-	return readFileSync(filePath, { encoding: "utf-8" });
+function read(locale: Locale, name: string): Promise<string> {
+	return Bun.file(`content/${locale}/${name}.md`).text();
 }
 
 export interface Template {
@@ -16,21 +11,23 @@ export interface Template {
 }
 
 const templatesByLocale = new Map<Locale, Template>(
-	locales.map((locale) => {
-		return [
-			locale,
-			{
-				template: read(locale, "template"),
-				partials: {
-					copyrightNotice: read(locale, "copyright-notice"),
-					matomoNotice: read(locale, "matomo-notice"),
-					projectNature: read(locale, "project-nature"),
-					responsiblePersons: read(locale, "responsible-persons"),
-					websiteAim: read(locale, "website-aim"),
+	await Promise.all(
+		locales.map(async (locale): Promise<[Locale, Template]> => {
+			return [
+				locale,
+				{
+					template: await read(locale, "template"),
+					partials: {
+						copyrightNotice: await read(locale, "copyright-notice"),
+						matomoNotice: await read(locale, "matomo-notice"),
+						projectNature: await read(locale, "project-nature"),
+						responsiblePersons: await read(locale, "responsible-persons"),
+						websiteAim: await read(locale, "website-aim"),
+					},
 				},
-			},
-		];
-	}),
+			];
+		}),
+	),
 );
 
 export function getTemplate(locale: Locale, { hasMatomo, ...config }: ImprintConfig): Template {
