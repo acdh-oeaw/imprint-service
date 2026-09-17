@@ -6,7 +6,6 @@
       "name": "impr",
       "dependencies": {
         "@acdh-oeaw/lib": "^0.3.7",
-        "@acdh-oeaw/validate-env": "^0.2.1",
         "hono": "^4.13.8",
         "hono-pino": "^0.10.3",
         "pino": "^10.3.1",
@@ -25,8 +24,6 @@
   },
   "packages": {
     "@acdh-oeaw/lib": ["@acdh-oeaw/lib@0.3.7", "", {}, "sha512-ayIAgoslwm60grK0H2g5D2rust5PS3+35gMqNILmQN3AT4Vr4MGepSTxu9nko8It8E8wcN+OG8DTkfiKz9vrPg=="],
-
-    "@acdh-oeaw/validate-env": ["@acdh-oeaw/validate-env@0.2.1", "", { "dependencies": { "@acdh-oeaw/lib": "^0.3.4" }, "peerDependencies": { "typescript": ">=5.4" } }, "sha512-HuU7IwYhvumCQN1Nk1wppujSEvXl03JZ4G8oGuhDG01Kepq86GNq0OKPEgenA74teyTTHu3B7N5buCfq5edINQ=="],
 
     "@oxfmt/binding-android-arm-eabi": ["@oxfmt/binding-android-arm-eabi@0.68.0", "", { "os": "android", "cpu": "arm" }, "sha512-dhfYPbzv/h9JgHjNkl2R6sOjUfxDyLGOZVb3g8/ScaTNwwJcYgmHh8kcYFDUhinuy1QAoANCWUvw1jlk+z6gAg=="],
 
