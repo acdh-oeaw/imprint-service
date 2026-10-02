@@ -73,9 +73,15 @@ const sanitizer = new HTMLRewriter().on("*", {
 			}
 		}
 
-		/** A link without a valid target is just text. */
-		if (element.tagName === "a" && !element.hasAttribute("href")) {
-			element.removeAndKeepContent();
+		/**
+		 * A link without a valid target is just text. The remaining href is checked again, because with
+		 * duplicate attributes `removeAttribute` can remove a valid href instead of the invalid one.
+		 */
+		if (element.tagName === "a") {
+			const href = element.getAttribute("href");
+			if (href == null || !isAllowedHref(href)) {
+				element.removeAndKeepContent();
+			}
 		}
 	},
 });

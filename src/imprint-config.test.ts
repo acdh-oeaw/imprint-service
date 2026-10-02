@@ -29,6 +29,12 @@ describe("getImprintConfig", () => {
 		expect(config.websiteAim?.de).toBe("a\nb");
 	});
 
+	it("should treat empty sections as unset", () => {
+		const config = getImprintConfig(createIssue("responsiblePersons:\nwebsiteAim:\n  de: a"));
+		expect(config.responsiblePersons).toBeNull();
+		expect(config.websiteAim?.de).toBe("a");
+	});
+
 	it("should throw on invalid yaml", () => {
 		expect(() => getImprintConfig(createIssue("a: ["))).toThrow(ImprintConfigParseError);
 	});

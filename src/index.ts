@@ -1,4 +1,4 @@
-import { Hono } from "hono";
+import { type Handler, Hono } from "hono";
 import { cors } from "hono/cors";
 import { HTTPException } from "hono/http-exception";
 import { requestId } from "hono/request-id";
@@ -17,16 +17,23 @@ const app = new Hono<LoggerEnv>({ strict: false });
 
 app.use(cors(), requestId(), logger());
 
-/** Healthcheck, used by cluster. */
-app.get("/", async (c) => {
-	try {
-		await pingRedmine();
-	} catch (error) {
-		throw new HTTPException(503, { cause: error, message: "Redmine api unavailable" });
-	}
+/** Routes only support GET (and HEAD, which hono handles like GET). */
+const methodNotAllowed: Handler<LoggerEnv> = (c) => {
+	return c.json({ message: "Method not allowed" }, 405, { Allow: "GET,HEAD" });
+};
 
-	return c.text("OK");
-});
+/** Healthcheck, used by cluster. */
+app
+	.get("/", async (c) => {
+		try {
+			await pingRedmine();
+		} catch (error) {
+			throw new HTTPException(503, { cause: error, message: "Redmine api unavailable" });
+		}
+
+		return c.text("OK");
+	})
+	.all(methodNotAllowed);
 
 const pathParamsSchema = v.object({
 	id: v.pipe(v.string(), v.toNumber(), v.integer(), v.minValue(1)),
@@ -51,25 +58,27 @@ const contentTypes = {
 	xhtml: "application/xhtml+xml",
 } satisfies Record<v.InferOutput<typeof searchParamsSchema>["format"], string>;
 
-app.get(
-	"/:id",
-	validator("param", pathParamsSchema),
-	validator("query", searchParamsSchema),
-	async (c) => {
-		const { id: serviceId } = c.req.valid("param");
-		const { format, locale, redmine } = c.req.valid("query");
+app
+	.get(
+		"/:id",
+		validator("param", pathParamsSchema),
+		validator("query", searchParamsSchema),
+		async (c) => {
+			const { id: serviceId } = c.req.valid("param");
+			const { format, locale, redmine } = c.req.valid("query");
 
-		const config =
-			redmine !== "disabled"
-				? getImprintConfig(await getRedmineIssueById(serviceId))
-				: { hasMatomo: true };
-		const markdown = renderTemplate(locale, config);
+			const config =
+				redmine !== "disabled"
+					? getImprintConfig(await getRedmineIssueById(serviceId))
+					: { hasMatomo: true };
+			const markdown = renderTemplate(locale, config);
 
-		const body = format === "markdown" ? markdown : convertMarkdownToHtml(markdown);
+			const body = format === "markdown" ? markdown : convertMarkdownToHtml(markdown);
 
-		return c.text(body, 200, { "Content-Type": `${contentTypes[format]}; charset=UTF-8` });
-	},
-);
+			return c.text(body, 200, { "Content-Type": `${contentTypes[format]}; charset=UTF-8` });
+		},
+	)
+	.all(methodNotAllowed);
 
 app.notFound((c) => {
 	return c.json({ message: "Not found" }, 404);

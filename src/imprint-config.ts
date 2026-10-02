@@ -2,14 +2,17 @@ import * as v from "valibot";
 
 import type { RedmineIssue } from "./redmine";
 
+/** An empty section (a key without value) is parsed as `null`, and treated as unset. */
+const localizedTextSchema = v.nullish(
+	v.object({
+		de: v.nullish(v.pipe(v.string(), v.nonEmpty())),
+		en: v.nullish(v.pipe(v.string(), v.nonEmpty())),
+	}),
+);
+
 const imprintConfigSchema = v.object({
 	/** We ignore `language` setting from redmine. */
-	copyrightNotice: v.optional(
-		v.object({
-			de: v.nullish(v.pipe(v.string(), v.nonEmpty())),
-			en: v.nullish(v.pipe(v.string(), v.nonEmpty())),
-		}),
-	),
+	copyrightNotice: localizedTextSchema,
 	/**
 	 * `Bun.YAML` implements YAML 1.2, which parses 'yes'/'no'/'on'/'off' as strings, so we accept
 	 * those as booleans ourselves for backwards compatibility with YAML 1.1.
@@ -26,30 +29,10 @@ const imprintConfigSchema = v.object({
 		]),
 		true,
 	),
-	matomoNotice: v.optional(
-		v.object({
-			de: v.nullish(v.pipe(v.string(), v.nonEmpty())),
-			en: v.nullish(v.pipe(v.string(), v.nonEmpty())),
-		}),
-	),
-	projectNature: v.optional(
-		v.object({
-			de: v.nullish(v.pipe(v.string(), v.nonEmpty())),
-			en: v.nullish(v.pipe(v.string(), v.nonEmpty())),
-		}),
-	),
-	responsiblePersons: v.optional(
-		v.object({
-			de: v.nullish(v.pipe(v.string(), v.nonEmpty())),
-			en: v.nullish(v.pipe(v.string(), v.nonEmpty())),
-		}),
-	),
-	websiteAim: v.optional(
-		v.object({
-			de: v.nullish(v.pipe(v.string(), v.nonEmpty())),
-			en: v.nullish(v.pipe(v.string(), v.nonEmpty())),
-		}),
-	),
+	matomoNotice: localizedTextSchema,
+	projectNature: localizedTextSchema,
+	responsiblePersons: localizedTextSchema,
+	websiteAim: localizedTextSchema,
 });
 
 export type ImprintConfig = v.InferOutput<typeof imprintConfigSchema>;

@@ -199,6 +199,23 @@ describe("imprint endpoint GET /:id", () => {
 		expect(status).toBe(404);
 	});
 
+	it("should respond with 405 Method Not Allowed for unsupported methods", async () => {
+		for (const pathname of ["/", "/21966", "/21966/"]) {
+			const res = await app.request(String(createUrl({ pathname })), { method: "POST" });
+			expect(res.status).toBe(405);
+			expect(res.headers.get("Allow")).toBe("GET,HEAD");
+			expect(await res.json()).toEqual({ message: "Method not allowed" });
+		}
+	});
+
+	it("should respond to HEAD requests", async () => {
+		const res = await app.request(
+			String(createUrl({ pathname: "/21966", searchParams: { redmine: "disabled" } })),
+			{ method: "HEAD" },
+		);
+		expect(res.status).toBe(200);
+	});
+
 	it("should respond with 400 Bad Request when service id is invalid", async () => {
 		const serviceId = "abc";
 		const req = new Request(
