@@ -44,6 +44,15 @@ describe("convertMarkdownToHtml", () => {
 		expect(convertMarkdownToHtml("<a>x</a>")).toBe("<p>x</p>\n");
 	});
 
+	it("should not keep an unsafe href when the attribute is duplicated", () => {
+		expect(
+			convertMarkdownToHtml('<a href="https://x.at" href="javascript:alert(1)">x</a>'),
+		).not.toContain("javascript");
+		expect(
+			convertMarkdownToHtml('<a href="javascript:alert(1)" href="https://x.at">x</a>'),
+		).not.toContain("javascript");
+	});
+
 	it("should serialise markdown void elements self-closing", () => {
 		expect(convertMarkdownToHtml("a  \nb")).toContain("<br />");
 	});
