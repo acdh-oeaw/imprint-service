@@ -1,6 +1,9 @@
 [install]
 minimumReleaseAge = 86400
 
+[run]
+bun = true
+
 [fmt]
 ignorePatterns = ["content/"]
 jsdoc = true

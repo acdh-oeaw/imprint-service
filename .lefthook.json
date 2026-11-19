@@ -3,7 +3,7 @@
 	"pre-commit": {
 		"commands": {
 			"oxlint": {
-				"run": "bun oxlint --fix --report-unused-disable-directives --type-aware --type-check {staged_files}",
+				"run": "bun oxlint --fix --no-error-on-unmatched-pattern --report-unused-disable-directives --type-aware --type-check {staged_files}",
 				"stage_fixed": true
 			},
 			"fmt": {
