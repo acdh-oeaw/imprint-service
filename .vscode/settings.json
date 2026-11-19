@@ -3,7 +3,7 @@
 		"source.fixAll": "explicit"
 	},
 	"editor.defaultFormatter": "oxc.oxc-vscode",
-	"editor.formatOnSave": true,
+	"editor.formatOnSave": false,
 	"editor.inlayHints.enabled": "offUnlessPressed",
 	"editor.rulers": [100],
 	"editor.stickyScroll.enabled": true,

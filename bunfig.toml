@@ -1,2 +1,8 @@
 [install]
 minimumReleaseAge = 86400
+
+[run]
+bun = true
+
+[fmt]
+config = ".oxfmtrc.jsonc"
