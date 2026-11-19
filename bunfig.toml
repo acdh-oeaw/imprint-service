@@ -1,2 +1,14 @@
 [install]
 minimumReleaseAge = 86400
+
+[fmt]
+ignorePatterns = ["content/"]
+jsdoc = true
+printWidth = 100
+useTabs = true
+
+[fmt.sortImports]
+groups = [["side_effect"], ["builtin"], ["external"], ["internal", "subpath"], ["unknown"]]
+
+[fmt.sortPackageJson]
+sortScripts = true

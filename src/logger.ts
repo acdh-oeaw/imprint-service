@@ -1,4 +1,4 @@
-import { type StructuredLoggerEnv, structuredLogger } from "@hono/structured-logger";
+import { structuredLogger, type StructuredLoggerEnv } from "@hono/structured-logger";
 import type { Context } from "hono";
 import type { RequestIdVariables } from "hono/request-id";
 import pino, { type Logger } from "pino";
